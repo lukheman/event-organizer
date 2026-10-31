@@ -37,6 +37,7 @@ class LandingPageController extends Controller
             'testimonials' => Testimonial::query()->where('is_active', true)->latest()->limit(3)->get(),
             'stats' => [
                 'rental_items' => $rentalItems->count(),
+                'available_items' => $rentalItems->where('availability', 'available')->count(),
                 'rental_categories' => $rentalItems->pluck('category')->filter()->unique()->count(),
                 'collaborations' => Collaboration::query()->where('is_active', true)->count(),
                 'partners' => Collaboration::query()->where('is_active', true)->distinct()->count('partner_name'),

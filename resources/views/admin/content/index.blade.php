@@ -35,6 +35,11 @@
                                 <span class="badge bg-{{ $record->is_active ? 'success' : 'secondary' }}">
                                     {{ $record->is_active ? 'Tampil' : 'Sembunyi' }}
                                 </span>
+                                @if ($resource === 'rental-items')
+                                    <span class="badge bg-{{ $record->availabilityKey() === 'available' ? 'success' : 'danger' }}">
+                                        {{ $record->availabilityLabel() }}
+                                    </span>
+                                @endif
                             </td>
                             <td>{{ $record->created_at->format('d M Y') }}</td>
                             <td class="text-nowrap">

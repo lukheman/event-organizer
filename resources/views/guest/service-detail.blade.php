@@ -32,20 +32,28 @@
 
                 <div class="row g-4">
                     @foreach ($service->rentalItems as $item)
+                        @php
+                            $availability = $item->availabilityKey();
+                            $inquiry = 'Halo, saya ingin menyewa '.$item->name.' untuk acara saya. Mohon info ketersediaan dan harganya.';
+                            $ctaLabel = 'Hubungi Penyedia';
+                        @endphp
                         <div class="col-md-6 col-lg-4">
                             <div class="card-clean p-3 h-100 d-flex flex-column">
-                                <div class="media-frame mb-3">
+                                <div class="media-frame mb-3 position-relative">
                                     @if ($item->photoUrl())
                                         <img src="{{ $item->photoUrl() }}" alt="Foto {{ $item->name }}" loading="lazy">
                                     @else
                                         <i class="{{ $item->categoryIcon() }}"></i>
                                     @endif
+                                    <span class="availability availability-{{ $availability }} position-absolute top-0 end-0 m-2">
+                                        <i class="{{ $item->availabilityIcon() }}"></i>{{ $item->availabilityLabel() }}
+                                    </span>
                                 </div>
                                 <span class="eyebrow mb-1">{{ $item->categoryLabel() }}</span>
                                 <h3 class="h5">{{ $item->name }}</h3>
                                 <p class="text-secondary small mb-3">{{ $item->description }}</p>
-                                <a class="btn btn-ghost btn-sm mt-auto align-self-start" target="_blank" rel="noopener" href="{{ \App\Support\SiteContent::whatsappUrl($settings, 'Halo, saya ingin menyewa '.$item->name.' untuk acara saya. Mohon info ketersediaan dan harganya.') }}">
-                                    <i class="fa-brands fa-whatsapp me-1"></i> Tanya ketersediaan
+                                <a class="btn btn-ghost btn-sm mt-auto align-self-start" target="_blank" rel="noopener" href="{{ \App\Support\SiteContent::whatsappUrl($settings, $inquiry) }}">
+                                    <i class="fa-brands fa-whatsapp me-1"></i> {{ $ctaLabel }}
                                 </a>
                             </div>
                         </div>

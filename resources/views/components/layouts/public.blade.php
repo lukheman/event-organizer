@@ -157,6 +157,37 @@
             font-size: .72rem;
         }
 
+        .availability {
+            display: inline-flex;
+            align-items: center;
+            gap: .35rem;
+            border-radius: 999px;
+            padding: .3rem .6rem;
+            font-size: .7rem;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: .01em;
+            white-space: nowrap;
+        }
+
+        .availability i {
+            font-size: .68rem;
+        }
+
+        .availability-available {
+            background: var(--mint);
+            color: var(--teal);
+        }
+
+        .availability-unavailable {
+            background: #fbe3e3;
+            color: #a12828;
+        }
+
+        .media-frame .availability {
+            box-shadow: 0 6px 16px rgba(16, 42, 43, .18);
+        }
+
         .card-clean {
             border: 1px solid var(--line);
             border-radius: 1.1rem;

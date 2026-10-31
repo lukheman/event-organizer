@@ -35,7 +35,16 @@
                         <label class="form-label" for="rental-order">Urutan</label>
                         <input id="rental-order" type="number" name="sort_order" class="form-control" value="{{ old('sort_order', $record?->sort_order ?? 0) }}">
                     </div>
-                    <div class="col-12">
+                    <div class="col-md-6">
+                        <label class="form-label" for="rental-availability">Status Ketersediaan</label>
+                        <select id="rental-availability" name="availability" class="form-select" required>
+                            @foreach (config('rental.availability') as $value => $meta)
+                                <option value="{{ $value }}" @selected(old('availability', $record?->availability ?? 'available') === $value)>{{ $meta['label'] }}</option>
+                            @endforeach
+                        </select>
+                        <div class="form-text">Tampil sebagai badge di katalog publik.</div>
+                    </div>
+                    <div class="col-md-6">
                         <label class="form-label" for="rental-description">Deskripsi</label>
                         <textarea id="rental-description" name="description" class="form-control" rows="3">{{ old('description', $record?->description) }}</textarea>
                     </div>

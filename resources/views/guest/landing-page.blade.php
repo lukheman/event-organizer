@@ -3,7 +3,6 @@
     $heroTitle = $settings['hero_title'] ?? 'Sewa perlengkapan acara, lengkap dan siap pakai.';
     $heroSubtitle = $settings['hero_subtitle'] ?? 'Tenda, sound system, lighting, kursi, panggung, hingga genset. Cek ketersediaan dan pesan langsung via WhatsApp.';
     $waUrl = \App\Support\SiteContent::whatsappUrl($settings);
-    $featuredItems = $rentalItems->take(3);
     $categoryLabels = config('rental.categories');
 @endphp
 
@@ -22,7 +21,7 @@
 
                     <div class="d-flex flex-wrap gap-2 mb-4">
                         <a class="btn btn-main" href="#katalog">
-                            <i class="fa-solid fa-box-open me-1"></i> Lihat katalog sewa
+                            <i class="fa-solid fa-box-open me-1"></i> Lihat katalog
                         </a>
                         <a class="btn btn-ghost" href="{{ $waUrl }}" target="_blank" rel="noopener">
                             <i class="fa-brands fa-whatsapp me-1"></i> Cek ketersediaan
@@ -36,8 +35,8 @@
 
                     <div class="d-flex flex-wrap gap-4">
                         <div>
-                            <div class="stat-value">{{ $stats['rental_items'] }}</div>
-                            <div class="small text-secondary">Item siap sewa</div>
+                            <div class="stat-value">{{ $stats['available_items'] }}</div>
+                            <div class="small text-secondary">Item tersedia</div>
                         </div>
                         <div>
                             <div class="stat-value">{{ $stats['rental_categories'] }}</div>
@@ -54,40 +53,6 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6">
-                    <div class="card-clean p-3 p-md-4">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div>
-                                <span class="eyebrow">Stok siap sewa</span>
-                                <h2 class="h5 mt-1 mb-0">Perlengkapan yang sering dipesan</h2>
-                            </div>
-                            <span class="badge rounded-pill px-3 py-2" style="background: var(--mint); color: var(--teal)">
-                                {{ $stats['rental_items'] }} item
-                            </span>
-                        </div>
-
-                        @forelse ($featuredItems as $item)
-                            <a class="d-flex align-items-center gap-3 py-3 text-decoration-none text-dark {{ ! $loop->last ? 'border-bottom' : '' }}" href="{{ \App\Support\SiteContent::whatsappUrl($settings, 'Halo, saya ingin menyewa '.$item->name.' untuk acara saya. Mohon info ketersediaan dan harganya.') }}" target="_blank" rel="noopener">
-                                <div class="rental-thumb">
-                                    @if ($item->photoUrl())
-                                        <img src="{{ $item->photoUrl() }}" alt="{{ $item->name }}" loading="lazy">
-                                    @else
-                                        <i class="{{ $item->categoryIcon() }}"></i>
-                                    @endif
-                                </div>
-                                <div class="flex-grow-1">
-                                    <div class="fw-semibold">{{ $item->name }}</div>
-                                    <div class="small text-secondary">{{ $item->categoryLabel() }}</div>
-                                </div>
-                                <i class="fa-brands fa-whatsapp" style="color: var(--teal)"></i>
-                            </a>
-                        @empty
-                            <p class="text-secondary mb-0">Katalog sedang diperbarui. Hubungi kami untuk kebutuhan alat acara Anda.</p>
-                        @endforelse
-
-                        <a class="text-link d-inline-block mt-3" href="#katalog">Lihat semua item <i class="fa-solid fa-arrow-right ms-1"></i></a>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -98,11 +63,8 @@
                 <div class="section-head">
                     <span class="eyebrow">Katalog sewa</span>
                     <h2 class="display-6 mt-2 mb-2">Pilih alat, cek jadwal, kami antar.</h2>
-                    <p class="text-secondary mb-0">Semua item dirawat dan diperiksa sebelum dikirim ke lokasi acara.</p>
+                    <p class="text-secondary mb-0">Cek badge ketersediaan pada setiap item. Semua alat dirawat dan diperiksa sebelum dikirim.</p>
                 </div>
-                <a class="btn btn-main text-nowrap" href="{{ $waUrl }}" target="_blank" rel="noopener">
-                    <i class="fa-brands fa-whatsapp me-1"></i> Tanya stok
-                </a>
             </div>
 
             @if ($rentalItems->isNotEmpty())
@@ -113,23 +75,37 @@
                     @endforeach
                 </div>
 
+                <div class="d-flex flex-wrap align-items-center gap-3 small text-secondary mb-4">
+                    <span class="d-inline-flex align-items-center gap-2">
+                        <span class="availability availability-available"><i class="fa-solid fa-circle-check"></i>Tersedia</span>
+                        siap dikirim
+                    </span>
+                    <span class="d-inline-flex align-items-center gap-2">
+                        <span class="availability availability-unavailable"><i class="fa-solid fa-circle-xmark"></i>Tidak tersedia</span>
+                        belum dapat disewa
+                    </span>
+                </div>
+
                 <div class="row g-4">
                     @foreach ($rentalItems as $item)
+                        @php
+                            $availability = $item->availabilityKey();
+                        @endphp
                         <div class="col-md-6 col-lg-4" data-category="{{ $item->category }}">
                             <div class="card-clean p-3 h-100 d-flex flex-column">
-                                <div class="media-frame mb-3">
+                                <div class="media-frame mb-3 position-relative">
                                     @if ($item->photoUrl())
                                         <img src="{{ $item->photoUrl() }}" alt="Foto {{ $item->name }}" loading="lazy">
                                     @else
                                         <i class="{{ $item->categoryIcon() }}"></i>
                                     @endif
+                                    <span class="availability availability-{{ $availability }} position-absolute top-0 end-0 m-2">
+                                        <i class="{{ $item->availabilityIcon() }}"></i>{{ $item->availabilityLabel() }}
+                                    </span>
                                 </div>
                                 <span class="eyebrow mb-1">{{ $item->categoryLabel() }}</span>
                                 <h3 class="h5">{{ $item->name }}</h3>
                                 <p class="text-secondary small mb-3">{{ $item->description }}</p>
-                                <a class="btn btn-ghost btn-sm mt-auto align-self-start" target="_blank" rel="noopener" href="{{ \App\Support\SiteContent::whatsappUrl($settings, 'Halo, saya ingin menyewa '.$item->name.' untuk acara saya. Mohon info ketersediaan dan harganya.') }}">
-                                    <i class="fa-brands fa-whatsapp me-1"></i> Tanya ketersediaan
-                                </a>
                             </div>
                         </div>
                     @endforeach

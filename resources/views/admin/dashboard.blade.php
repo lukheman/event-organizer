@@ -12,7 +12,7 @@
             <x-layout.stat-card icon="fas fa-box-open" label="Total Item Sewa" :value="$stats['rental_items']" variant="primary" />
         </div>
         <div class="col-md-6 col-lg-3">
-            <x-layout.stat-card icon="fas fa-eye" label="Item Tampil" :value="$stats['active_rental_items']" variant="success" />
+            <x-layout.stat-card icon="fas fa-circle-check" label="Item Tersedia" :value="$stats['available_rental_items']" variant="success" />
         </div>
         <div class="col-md-6 col-lg-3">
             <x-layout.stat-card icon="fas fa-handshake" label="Kerja Sama" :value="$stats['collaborations']" variant="secondary" />
@@ -35,6 +35,7 @@
                             <tr>
                                 <th>Nama Item</th>
                                 <th>Kategori</th>
+                                <th>Ketersediaan</th>
                                 <th>Status</th>
                                 <th>Urutan</th>
                             </tr>
@@ -45,6 +46,11 @@
                                     <td><strong>{{ $item->name }}</strong></td>
                                     <td class="text-muted">{{ $item->categoryLabel() }}</td>
                                     <td>
+                                        <span class="badge bg-{{ $item->availabilityKey() === 'available' ? 'success' : 'danger' }}">
+                                            {{ $item->availabilityLabel() }}
+                                        </span>
+                                    </td>
+                                    <td>
                                         <span class="badge bg-{{ $item->is_active ? 'success' : 'secondary' }}">
                                             {{ $item->is_active ? 'Tampil' : 'Sembunyi' }}
                                         </span>
@@ -53,7 +59,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="4" class="text-center py-4 text-muted">Belum ada item sewa.</td>
+                                    <td colspan="5" class="text-center py-4 text-muted">Belum ada item sewa.</td>
                                 </tr>
                             @endforelse
                         </tbody>

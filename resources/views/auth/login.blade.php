@@ -1,13 +1,14 @@
-<x-layouts.guest title="Login - AdminPro" type="auth">
+<x-layouts.guest title="Masuk Panel Admin — Nusa Event" type="auth">
     <div class="login-container">
         <div class="login-card">
             <!-- Brand Logo -->
             <div class="brand-logo">
                 <div class="icon-wrapper">
-                    <i class="fas fa-layer-group"></i>
+                    <i class="fa-solid fa-box-open"></i>
                 </div>
-                <h1>Welcome Back</h1>
-                <p>Sign in to continue to AdminPro</p>
+                <span class="brand-kicker">Panel Admin</span>
+                <h1>Masuk ke Nusa Event</h1>
+                <p>Kelola katalog sewa dan konten website.</p>
             </div>
 
             <!-- Login Form -->
@@ -19,8 +20,8 @@
                     <i class="fas fa-envelope input-icon"></i>
                     <input type="email" name="email" value="{{ old('email') }}"
                         class="form-control @error('email') is-invalid @enderror" id="email"
-                        placeholder="Email Address" autocomplete="email" required autofocus>
-                    <label for="email">Email Address</label>
+                        placeholder="Alamat email" autocomplete="email" required autofocus>
+                    <label for="email">Alamat email</label>
                     @error('email')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -31,9 +32,9 @@
                     <i class="fas fa-lock input-icon"></i>
                     <input type="password" name="password"
                         class="form-control @error('password') is-invalid @enderror" id="password"
-                        placeholder="Password" autocomplete="current-password" required>
-                    <label for="password">Password</label>
-                    <button type="button" class="password-toggle" onclick="togglePassword()">
+                        placeholder="Kata sandi" autocomplete="current-password" required>
+                    <label for="password">Kata sandi</label>
+                    <button type="button" class="password-toggle" onclick="togglePassword()" aria-label="Tampilkan kata sandi">
                         <i class="fas fa-eye" id="toggleIcon"></i>
                     </button>
                     @error('password')
@@ -41,36 +42,55 @@
                     @enderror
                 </div>
 
-                <!-- Remember Me & Forgot Password -->
+                <!-- Remember Me -->
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div class="form-check mb-0">
                         <input class="form-check-input" type="checkbox" name="remember" value="1"
                             id="remember" @checked(old('remember'))>
-                        <label class="form-check-label" for="remember">Remember me</label>
+                        <label class="form-check-label" for="remember">Ingat saya</label>
                     </div>
-                    <a href="#" class="forgot-password">Forgot Password?</a>
+                    <a href="{{ route('home') }}" class="forgot-password">Lihat website</a>
                 </div>
 
                 <!-- Login Button -->
                 <button type="submit" class="btn btn-login" id="login-button">
-                    <span id="login-text">Sign In <i class="fas fa-arrow-right"></i></span>
+                    <span id="login-text">Masuk ke panel <i class="fas fa-arrow-right"></i></span>
                     <span id="login-loading" class="d-none">
-                        <i class="fas fa-spinner fa-spin me-2"></i> Signing in...
+                        <i class="fas fa-spinner fa-spin me-2"></i> Memproses...
                     </span>
                 </button>
             </form>
 
-            <!-- Divider -->
-            <div class="divider">
-                <span>or continue with</span>
-            </div>
-
             <!-- Sign Up Link -->
             <div class="signup-link">
-                Don't have an account? <a href="{{ route('register') }}">Create Account</a>
+                Belum punya akun? <a href="{{ route('register') }}">Daftar</a>
             </div>
         </div>
+
+        <p class="login-footer">
+            <i class="fa-solid fa-lock"></i>
+            Area khusus pengelola website Nusa Event.
+        </p>
     </div>
+
+    @push('styles')
+        <style>
+            .login-footer {
+                text-align: center;
+                margin-top: 1.25rem;
+                margin-bottom: 0;
+                color: rgba(230, 243, 239, .75);
+                font-size: .85rem;
+                position: relative;
+                z-index: 1;
+            }
+
+            .login-footer i {
+                color: #d99b4b;
+                margin-right: .35rem;
+            }
+        </style>
+    @endpush
 
     @push('scripts')
         <script>

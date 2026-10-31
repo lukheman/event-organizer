@@ -22,6 +22,10 @@ class CollaborationPhoto extends Model
 
     public function photoUrl(): ?string
     {
+        if ($this->photo_path && filter_var($this->photo_path, FILTER_VALIDATE_URL)) {
+            return $this->photo_path;
+        }
+
         return $this->photo_path && Storage::disk('public')->exists($this->photo_path)
             ? Storage::disk('public')->url($this->photo_path)
             : null;

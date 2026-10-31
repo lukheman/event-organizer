@@ -15,12 +15,13 @@ test('the landing page renders with its styles', function () {
 test('guests can view the login and register pages', function () {
     $this->get('/login')
         ->assertOk()
-        ->assertSee('Sign in to continue to AdminPro')
+        ->assertSee('Masuk ke Nusa Event')
+        ->assertSee('Panel Admin')
         ->assertSee('function togglePassword', false);
 
     $this->get('/register')
         ->assertOk()
-        ->assertSee('Create Account')
+        ->assertSee('Buat akun pengelola')
         ->assertSee('function togglePassword', false);
 });
 

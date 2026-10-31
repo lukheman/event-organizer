@@ -20,4 +20,17 @@ return [
         'power' => 'fa-solid fa-bolt',
         'lainnya' => 'fa-solid fa-box-open',
     ],
+
+    'availability' => [
+        'available' => [
+            'label' => 'Tersedia',
+            'icon' => 'fa-solid fa-circle-check',
+            'hint' => 'Siap dikirim sesuai jadwal acara.',
+        ],
+        'unavailable' => [
+            'label' => 'Tidak tersedia',
+            'icon' => 'fa-solid fa-circle-xmark',
+            'hint' => 'Sedang dipakai atau dalam perawatan.',
+        ],
+    ],
 ];

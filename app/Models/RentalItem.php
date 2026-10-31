@@ -13,7 +13,7 @@ class RentalItem extends Model
     /** @use HasFactory<RentalItemFactory> */
     use HasFactory;
 
-    protected $fillable = ['service_id', 'category', 'name', 'description', 'photo', 'sort_order', 'is_active'];
+    protected $fillable = ['service_id', 'category', 'availability', 'name', 'description', 'photo', 'sort_order', 'is_active'];
 
     protected function casts(): array
     {
@@ -27,6 +27,10 @@ class RentalItem extends Model
 
     public function photoUrl(): ?string
     {
+        if ($this->photo && filter_var($this->photo, FILTER_VALIDATE_URL)) {
+            return $this->photo;
+        }
+
         if ($this->photo && str_starts_with($this->photo, 'dummy-rental/')) {
             return asset('assets/'.$this->photo);
         }
@@ -44,5 +48,25 @@ class RentalItem extends Model
     public function categoryIcon(): string
     {
         return config('rental.icons.'.$this->category, 'fa-solid fa-box-open');
+    }
+
+    public function availabilityKey(): string
+    {
+        return $this->availability === 'unavailable' ? 'unavailable' : 'available';
+    }
+
+    public function availabilityLabel(): string
+    {
+        return config('rental.availability.'.$this->availabilityKey().'.label', 'Tersedia');
+    }
+
+    public function availabilityIcon(): string
+    {
+        return config('rental.availability.'.$this->availabilityKey().'.icon', 'fa-solid fa-circle-check');
+    }
+
+    public function isAvailable(): bool
+    {
+        return $this->availabilityKey() === 'available';
     }
 }

@@ -18,7 +18,7 @@ class DashboardController extends Controller
         return view('admin.dashboard', [
             'stats' => [
                 'rental_items' => RentalItem::query()->count(),
-                'active_rental_items' => RentalItem::query()->where('is_active', true)->count(),
+                'available_rental_items' => RentalItem::query()->where('availability', 'available')->count(),
                 'collaborations' => Collaboration::query()->count(),
                 'testimonials' => Testimonial::query()->count(),
             ],

@@ -26,6 +26,7 @@ it('shows rental catalog with live items and whatsapp cta', function () {
     $item = RentalItem::create([
         'service_id' => $rentalService->id,
         'category' => 'sound',
+        'availability' => 'limited',
         'name' => 'Sound System Test',
         'description' => 'Sound system untuk acara.',
         'sort_order' => 1,
@@ -55,18 +56,55 @@ it('shows rental catalog with live items and whatsapp cta', function () {
         ->assertSee($collaboration->event_name)
         ->assertSee($testimonial->name)
         ->assertSee('Instagram')
+        ->assertSee('Terbatas')
+        ->assertSee('Cek stok terbatas')
         ->assertSee('wa.me/628111222333', false)
         ->assertSee('Sound+System+Test', false);
 });
 
-it('renders dummy rental image assets for seeded catalog items', function () {
-    $this->seed();
+it('shows availability status for each rental item', function () {
+    $rentalService = Service::factory()->create(['category' => 'penyewaan', 'slug' => 'sewa-alat']);
+
+    foreach ([
+        ['key' => 'available', 'name' => 'Item Tersedia Uji'],
+        ['key' => 'limited', 'name' => 'Item Terbatas Uji'],
+        ['key' => 'unavailable', 'name' => 'Item Kosong Uji'],
+    ] as $index => $data) {
+        RentalItem::create([
+            'service_id' => $rentalService->id,
+            'category' => 'tenda',
+            'availability' => $data['key'],
+            'name' => $data['name'],
+            'sort_order' => $index + 1,
+            'is_active' => true,
+        ]);
+    }
 
     $this->get('/')
         ->assertSuccessful()
-        ->assertSee('/assets/dummy-rental/tenda.svg', false)
-        ->assertSee('/assets/dummy-rental/sound.svg', false)
-        ->assertSee('/assets/dummy-rental/lighting.svg', false);
+        ->assertSee('Item Tersedia Uji')
+        ->assertSee('Tersedia')
+        ->assertSee('Item Terbatas Uji')
+        ->assertSee('Cek stok terbatas')
+        ->assertSee('Item Kosong Uji')
+        ->assertSee('Tidak tersedia')
+        ->assertSee('Tanya jadwal berikutnya');
+});
+
+it('renders dummy rental image assets when no upload is available', function () {
+    $rentalService = Service::factory()->create(['category' => 'penyewaan', 'slug' => 'sewa-alat']);
+    RentalItem::create([
+        'service_id' => $rentalService->id,
+        'category' => 'tenda',
+        'name' => 'Tenda Dummy',
+        'photo' => 'dummy-rental/tenda.svg',
+        'sort_order' => 1,
+        'is_active' => true,
+    ]);
+
+    $this->get('/')
+        ->assertSuccessful()
+        ->assertSee('/assets/dummy-rental/tenda.svg', false);
 });
 
 it('hides inactive rental items from the public catalog', function () {

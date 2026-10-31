@@ -1,6 +1,6 @@
 @props([
-    'title' => 'AdminPro - Modern Admin Dashboard',
-    'description' => 'A beautiful, modern admin dashboard template built with Laravel and Bootstrap',
+    'title' => 'Nusa Event — Panel Admin',
+    'description' => 'Panel pengelolaan katalog sewa dan konten website Nusa Event.',
     'type' => 'guest',
 ])
 
@@ -24,31 +24,24 @@
 
     <style>
         :root {
-            --bs-primary: #6366f1;
-            --bs-primary: #4f46e5;
-            --primary-light: #818cf8;
-            --bs-secondary: #0ea5e9;
+            --bs-primary: #0d6865;
+            --bs-primary-rgb: 13, 104, 101;
+            --primary-light: #3f948f;
+            --bs-secondary: #d99b4b;
             --bs-success: #10b981;
-            --bs-warning: #f59e0b;
-            --bs-danger: #ef4444;
-            --text-primary: #1e293b;
-            --text-secondary: #64748b;
-            --text-muted: #94a3b8;
-            --border-color: #e2e8f0;
-            --bg-light: #f8fafc;
+            --bs-warning: #d99b4b;
+            --bs-danger: #d64545;
+            --teal: #0d6865;
+            --teal-dark: #084d4b;
+            --mint: #e6f3ef;
+            --gold: #d99b4b;
+            --ink: #102a2b;
+            --text-primary: #102a2b;
+            --text-secondary: #4d6b68;
+            --text-muted: #7b948f;
+            --border-color: #dce9e5;
+            --bg-light: #f2f8f5;
             --bg-white: #ffffff;
-        }
-
-        [data-theme="dark"] {
-            --bs-primary: #818cf8;
-            --bs-primary: #6366f1;
-            --primary-light: #a5b4fc;
-            --text-primary: #f1f5f9;
-            --text-secondary: #cbd5e1;
-            --text-muted: #94a3b8;
-            --border-color: #334155;
-            --bg-light: #0f172a;
-            --bg-white: #1e293b;
         }
 
         * {
@@ -92,10 +85,6 @@
             transition: all 0.3s ease;
         }
 
-        [data-theme="dark"] .site-navbar {
-            background: rgba(15, 23, 42, 0.95);
-        }
-
         .site-navbar-container {
             max-width: 1280px;
             margin: 0 auto;
@@ -108,15 +97,18 @@
         .site-brand {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             text-decoration: none;
-            color: var(--bs-primary);
-            font-size: 1.5rem;
-            font-weight: 700;
+            color: var(--teal);
+            font-family: 'Archivo', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 800;
+            letter-spacing: -.03em;
         }
 
         .site-brand i {
-            font-size: 1.75rem;
+            color: var(--gold);
+            font-size: 1.4rem;
         }
 
         .site-nav {
@@ -174,59 +166,28 @@
         .btn-nav-primary {
             background: linear-gradient(135deg, var(--bs-primary) 0%, var(--bs-primary) 100%);
             color: white;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 4px 15px rgba(13, 104, 101, 0.28);
         }
 
         .btn-nav-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 6px 20px rgba(13, 104, 101, 0.38);
             color: white;
         }
 
-        /* Theme Toggle */
-        .theme-toggle {
-            background: transparent;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .theme-toggle:hover {
-            background: var(--border-color);
-            color: var(--bs-primary);
-        }
-
-        .theme-toggle i {
-            font-size: 1.25rem;
-        }
-
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
-            background: transparent;
-            border: none;
-            color: var(--text-primary);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
+        /* Mobile adjustments */
         @media (max-width: 768px) {
             .site-nav {
                 display: none;
             }
 
-            .mobile-menu-btn {
-                display: block;
+            .site-navbar-container {
+                padding: .85rem 1.25rem;
             }
 
-            .site-navbar-actions .btn-nav-outline {
-                display: none;
+            .btn-nav-outline {
+                padding: 0.55rem 0.9rem;
+                font-size: 0.85rem;
             }
         }
 
@@ -269,12 +230,12 @@
         .btn-primary {
             background: linear-gradient(135deg, var(--bs-primary) 0%, var(--bs-primary) 100%);
             color: white;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 4px 15px rgba(13, 104, 101, 0.28);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 6px 20px rgba(13, 104, 101, 0.38);
         }
 
         .btn-lg {
@@ -394,7 +355,10 @@
         .auth-section {
             min-height: calc(100vh - 73px);
             margin-top: 73px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background:
+                radial-gradient(circle at 15% 20%, rgba(217, 155, 75, .35), transparent 45%),
+                radial-gradient(circle at 85% 80%, rgba(230, 243, 239, .25), transparent 50%),
+                linear-gradient(135deg, #0d6865 0%, #102a2b 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -403,7 +367,7 @@
             overflow: hidden;
         }
 
-        /* Animated background shapes */
+        /* decorative background shapes */
         .bg-shapes {
             position: absolute;
             top: 0;
@@ -417,7 +381,8 @@
         .bg-shapes .shape {
             position: absolute;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(230, 243, 239, .22);
+            background: rgba(230, 243, 239, .06);
             animation: float 15s infinite ease-in-out;
         }
 
@@ -465,13 +430,24 @@
         }
 
         .login-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            padding: 3rem;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: #ffffff;
+            border-radius: 22px;
+            box-shadow: 0 30px 60px -20px rgba(6, 34, 33, 0.55);
+            padding: 2.75rem;
+            border: 1px solid rgba(230, 243, 239, 0.4);
             animation: slideUp 0.6s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--teal), var(--gold));
         }
 
         @keyframes slideUp {
@@ -491,42 +467,44 @@
         }
 
         .brand-logo .icon-wrapper {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--bs-primary) 0%, var(--bs-primary) 100%);
-            border-radius: 20px;
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+            border-radius: 1.4rem;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 1rem;
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
-            }
-            50% {
-                box-shadow: 0 10px 40px rgba(99, 102, 241, 0.6);
-            }
+            box-shadow: 0 14px 30px rgba(13, 104, 101, 0.28);
         }
 
         .brand-logo .icon-wrapper i {
-            font-size: 2.5rem;
-            color: white;
+            font-size: 2rem;
+            color: var(--gold);
+        }
+
+        .brand-kicker {
+            display: inline-block;
+            color: var(--teal);
+            font-family: 'Archivo', sans-serif;
+            font-size: .7rem;
+            font-weight: 800;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            margin-bottom: .6rem;
         }
 
         .brand-logo h1 {
-            font-size: 1.75rem;
-            font-weight: 700;
+            font-size: 1.7rem;
+            font-weight: 800;
             color: var(--text-primary);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
         }
 
         .brand-logo p {
             color: var(--text-secondary);
             font-size: 0.95rem;
+            margin-bottom: 0;
         }
 
         .form-floating {
@@ -540,13 +518,14 @@
             padding: 1rem 1rem 1rem 3rem;
             font-size: 1rem;
             transition: all 0.3s ease;
-            background: #f8fafc;
+            background: #fbfcfa;
+            color: var(--text-primary);
         }
 
         .form-floating .form-control:focus {
-            border-color: var(--bs-primary);
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
-            background: white;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 4px rgba(13, 104, 101, 0.12);
+            background: #ffffff;
         }
 
         .form-floating label {
@@ -593,8 +572,8 @@
         }
 
         .form-check-input:focus {
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
-            border-color: var(--bs-primary);
+            box-shadow: 0 0 0 4px rgba(13, 104, 101, 0.12);
+            border-color: var(--teal);
         }
 
         .form-check-label {
@@ -617,12 +596,13 @@
         .btn-login {
             width: 100%;
             height: 56px;
-            background: linear-gradient(135deg, var(--bs-primary) 0%, var(--bs-primary) 100%);
+            background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
             border: none;
             border-radius: 12px;
             color: white;
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: .01em;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -641,7 +621,7 @@
 
         .btn-login:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 14px 30px rgba(13, 104, 101, 0.35);
         }
 
         .btn-login:hover::before {
@@ -785,27 +765,22 @@
     {{-- Navbar (shared across all pages) --}}
     <nav class="site-navbar">
         <div class="site-navbar-container">
-            <a href="/" class="site-brand">
-                <i class="fas fa-layer-group"></i>
-                <span>AdminPro</span>
+            <a href="{{ route('home') }}" class="site-brand">
+                <i class="fa-solid fa-sparkles"></i>
+                <span>Nusa Event</span>
             </a>
 
             <ul class="site-nav">
-                <li><a href="/#features" class="site-nav-link">Features</a></li>
-                <li><a href="/#components" class="site-nav-link">Components</a></li>
-                <li><a href="/#pricing" class="site-nav-link">Pricing</a></li>
-                <li><a href="/#contact" class="site-nav-link">Contact</a></li>
+                <li><a href="{{ route('home') }}#katalog" class="site-nav-link">Katalog Sewa</a></li>
+                <li><a href="{{ route('services') }}" class="site-nav-link">Layanan</a></li>
+                <li><a href="{{ route('collaborations') }}" class="site-nav-link">Kerja Sama</a></li>
+                <li><a href="{{ route('contact') }}" class="site-nav-link">Kontak</a></li>
             </ul>
 
             <div class="site-navbar-actions">
-                <button class="theme-toggle" onclick="toggleTheme()">
-                    <i class="fas fa-moon" id="theme-icon"></i>
-                </button>
-                <a href="{{ route('login') }}" class="btn-nav btn-nav-outline">Sign In</a>
-                <a href="{{ route('register') }}" class="btn-nav btn-nav-primary">Get Started</a>
-                <button class="mobile-menu-btn">
-                    <i class="fas fa-bars"></i>
-                </button>
+                <a href="{{ route('home') }}" class="btn-nav btn-nav-outline">
+                    <i class="fas fa-arrow-left"></i> Kembali ke situs
+                </a>
             </div>
         </div>
     </nav>
@@ -831,52 +806,41 @@
             <div class="container">
                 <div class="footer-container">
                     <div class="footer-brand">
-                        <a href="/" class="site-brand">
-                            <i class="fas fa-layer-group"></i>
-                            <span>AdminPro</span>
+                        <a href="{{ route('home') }}" class="site-brand">
+                            <i class="fa-solid fa-sparkles"></i>
+                            <span>Nusa Event</span>
                         </a>
-                        <p>A modern, elegant admin dashboard template built with Laravel and Bootstrap.</p>
+                        <p>Penyewaan perlengkapan acara dengan antar, pasang, dan penarikan.</p>
                     </div>
 
                     <div class="footer-links">
                         <div class="footer-column">
-                            <h4>Product</h4>
+                            <h4>Katalog</h4>
                             <ul>
-                                <li><a href="#features">Features</a></li>
-                                <li><a href="#components">Components</a></li>
-                                <li><a href="#pricing">Pricing</a></li>
-                                <li><a href="#">Changelog</a></li>
+                                <li><a href="{{ route('home') }}#katalog">Semua item</a></li>
+                                <li><a href="{{ route('services') }}">Layanan</a></li>
                             </ul>
                         </div>
                         <div class="footer-column">
-                            <h4>Resources</h4>
+                            <h4>Perusahaan</h4>
                             <ul>
-                                <li><a href="#">Documentation</a></li>
-                                <li><a href="#">Tutorials</a></li>
-                                <li><a href="#">Blog</a></li>
-                                <li><a href="#">Support</a></li>
+                                <li><a href="{{ route('about') }}">Tentang kami</a></li>
+                                <li><a href="{{ route('collaborations') }}">Kerja sama</a></li>
+                                <li><a href="{{ route('testimonials') }}">Testimoni</a></li>
                             </ul>
                         </div>
                         <div class="footer-column">
-                            <h4>Company</h4>
+                            <h4>Bantuan</h4>
                             <ul>
-                                <li><a href="#">About</a></li>
-                                <li><a href="#">Careers</a></li>
-                                <li><a href="#">Privacy</a></li>
-                                <li><a href="#">Terms</a></li>
+                                <li><a href="{{ route('contact') }}">Kontak</a></li>
+                                <li><a href="{{ route('login') }}">Panel admin</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
                 <div class="footer-bottom">
-                    <p>&copy; {{ date('Y') }} AdminPro. All rights reserved.</p>
-                    <div class="footer-social">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                    </div>
+                    <p>&copy; {{ date('Y') }} Nusa Event. Seluruh hak cipta dilindungi.</p>
                 </div>
             </div>
         </footer>
@@ -886,40 +850,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <script>
-        // Theme Toggle
-        function initTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-            if (savedTheme) {
-                document.documentElement.setAttribute('data-theme', savedTheme);
-            } else if (prefersDark) {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            }
-
-            updateThemeIcon();
-        }
-
-        function toggleTheme() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateThemeIcon();
-        }
-
-        function updateThemeIcon() {
-            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-            const themeIcon = document.getElementById('theme-icon');
-            if (themeIcon) {
-                themeIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
-            }
-        }
-
-        initTheme();
-
-        // Smooth scroll
+        // Smooth scroll for same-page anchors
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();

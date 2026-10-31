@@ -19,7 +19,7 @@ use Illuminate\View\View;
 class ContentController extends Controller
 {
     private const RESOURCES = [
-        'rental-items' => ['title' => 'Item Sewa', 'model' => RentalItem::class, 'fields' => ['service_id', 'category', 'name', 'description', 'photo', 'sort_order', 'is_active']],
+        'rental-items' => ['title' => 'Item Sewa', 'model' => RentalItem::class, 'fields' => ['service_id', 'category', 'availability', 'name', 'description', 'photo', 'sort_order', 'is_active']],
         'services' => ['title' => 'Layanan', 'model' => Service::class, 'fields' => ['category', 'name', 'slug', 'description', 'features', 'sort_order', 'is_active']],
         'collaborations' => ['title' => 'Kerja Sama', 'model' => Collaboration::class, 'fields' => ['partner_name', 'event_name', 'slug', 'event_date', 'service_category', 'description', 'is_active']],
         'testimonials' => ['title' => 'Testimoni', 'model' => Testimonial::class, 'fields' => ['name', 'organization', 'comment', 'rating', 'is_active']],
@@ -145,7 +145,7 @@ class ContentController extends Controller
     private function validated(Request $request, string $resource): array
     {
         $rules = match ($resource) {
-            'rental-items' => ['service_id' => ['required', 'exists:services,id'], 'category' => ['nullable', Rule::in(array_keys(config('rental.categories')))], 'name' => ['required', 'string', 'max:255'], 'description' => ['nullable', 'string'], 'photo' => ['nullable', 'image', 'max:2048'], 'sort_order' => ['nullable', 'integer'], 'is_active' => ['nullable', 'boolean']],
+            'rental-items' => ['service_id' => ['required', 'exists:services,id'], 'category' => ['nullable', Rule::in(array_keys(config('rental.categories')))], 'availability' => ['required', Rule::in(array_keys(config('rental.availability')))], 'name' => ['required', 'string', 'max:255'], 'description' => ['nullable', 'string'], 'photo' => ['nullable', 'image', 'max:2048'], 'sort_order' => ['nullable', 'integer'], 'is_active' => ['nullable', 'boolean']],
             'services' => ['category' => ['required', 'in:pelatihan,workshop,seminar,penyewaan'], 'name' => ['required', 'string', 'max:255'], 'slug' => ['required', 'string', 'max:255'], 'description' => ['required', 'string'], 'features' => ['nullable', 'string'], 'sort_order' => ['nullable', 'integer'], 'is_active' => ['nullable', 'boolean']],
             'collaborations' => ['partner_name' => ['required', 'string'], 'event_name' => ['required', 'string'], 'slug' => ['required', 'string'], 'event_date' => ['required', 'date'], 'service_category' => ['nullable', 'string'], 'description' => ['nullable', 'string'], 'is_active' => ['nullable', 'boolean']],
             'testimonials' => ['name' => ['required', 'string'], 'organization' => ['nullable', 'string'], 'comment' => ['required', 'string'], 'rating' => ['nullable', 'integer', 'between:1,5'], 'is_active' => ['nullable', 'boolean']],
