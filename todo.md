@@ -1,3 +1,3 @@
 # TODO
-buatkan file config.json untuk installer
-butkan compoponent toast
+- [x] buatkan file config.json untuk installer
+- [x] buatkan component toast

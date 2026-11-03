@@ -13,11 +13,11 @@ class RentalItem extends Model
     /** @use HasFactory<RentalItemFactory> */
     use HasFactory;
 
-    protected $fillable = ['service_id', 'category', 'availability', 'name', 'description', 'photo', 'sort_order', 'is_active'];
+    protected $fillable = ['service_id', 'category', 'availability', 'name', 'description', 'photo', 'price_per_day', 'sort_order', 'is_active'];
 
     protected function casts(): array
     {
-        return ['is_active' => 'boolean'];
+        return ['price_per_day' => 'integer', 'is_active' => 'boolean'];
     }
 
     public function service(): BelongsTo
@@ -52,7 +52,9 @@ class RentalItem extends Model
 
     public function availabilityKey(): string
     {
-        return $this->availability === 'unavailable' ? 'unavailable' : 'available';
+        return in_array($this->availability, ['available', 'limited', 'unavailable'], true)
+            ? $this->availability
+            : 'available';
     }
 
     public function availabilityLabel(): string
@@ -65,8 +67,20 @@ class RentalItem extends Model
         return config('rental.availability.'.$this->availabilityKey().'.icon', 'fa-solid fa-circle-check');
     }
 
+    public function availabilityCta(): string
+    {
+        return config('rental.availability.'.$this->availabilityKey().'.cta', 'Tanya ketersediaan');
+    }
+
     public function isAvailable(): bool
     {
         return $this->availabilityKey() === 'available';
+    }
+
+    public function dailyPriceLabel(): string
+    {
+        return $this->price_per_day > 0
+            ? 'Rp '.number_format($this->price_per_day, 0, ',', '.').' / hari'
+            : 'Harga berdasarkan kebutuhan';
     }
 }

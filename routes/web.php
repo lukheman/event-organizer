@@ -7,7 +7,6 @@ use App\Http\Controllers\Admin\LogoutController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Guest\LandingPageController;
 use App\Http\Controllers\Guest\PublicPageController;
 use Illuminate\Support\Facades\Route;
@@ -19,16 +18,17 @@ Route::get('/admin/login', [LoginController::class, 'show'])->name('admin.login'
 Route::get('/tentang', [PublicPageController::class, 'about'])->name('about');
 Route::get('/layanan', [PublicPageController::class, 'services'])->name('services');
 Route::get('/layanan/{service:slug}', [PublicPageController::class, 'service'])->name('services.show');
+Route::get('/alat/{rentalItem}', [PublicPageController::class, 'rentalItem'])->name('rental-items.show');
+Route::get('/rancang-kebutuhan', [PublicPageController::class, 'custom'])->name('custom');
 Route::get('/kerja-sama', [PublicPageController::class, 'collaborations'])->name('collaborations');
 Route::get('/kerja-sama/{collaboration:slug}', [PublicPageController::class, 'collaboration'])->name('collaborations.show');
 Route::get('/testimoni', [PublicPageController::class, 'testimonials'])->name('testimonials');
 Route::get('/kontak', [PublicPageController::class, 'contact'])->name('contact');
+Route::get('/sitemap.xml', [PublicPageController::class, 'sitemap'])->name('sitemap');
 
 // Auth Routes
 Route::get('/login', [LoginController::class, 'show'])->name('login');
 Route::post('/login', [LoginController::class, 'store'])->name('login.store');
-Route::get('/register', [RegisterController::class, 'show'])->name('register');
-Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
@@ -51,6 +51,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::post('/content/{resource}', [ContentController::class, 'store'])->name('admin.content.store');
     Route::get('/content/{resource}/{id}/edit', [ContentController::class, 'edit'])->name('admin.content.edit');
     Route::put('/content/{resource}/{id}', [ContentController::class, 'update'])->name('admin.content.update');
+    Route::delete('/content/photos/{photo}', [ContentController::class, 'destroyPhoto'])->name('admin.content.photos.destroy');
     Route::delete('/content/{resource}/{id}', [ContentController::class, 'destroy'])->name('admin.content.destroy');
     Route::get('/pengaturan', [ContentController::class, 'settings'])->name('admin.settings');
     Route::put('/pengaturan', [ContentController::class, 'updateSettings'])->name('admin.settings.update');

@@ -26,11 +26,19 @@ return [
             'label' => 'Tersedia',
             'icon' => 'fa-solid fa-circle-check',
             'hint' => 'Siap dikirim sesuai jadwal acara.',
+            'cta' => 'Sewa sekarang',
+        ],
+        'limited' => [
+            'label' => 'Terbatas',
+            'icon' => 'fa-solid fa-triangle-exclamation',
+            'hint' => 'Cek stok terbatas',
+            'cta' => 'Cek stok terbatas',
         ],
         'unavailable' => [
             'label' => 'Tidak tersedia',
             'icon' => 'fa-solid fa-circle-xmark',
             'hint' => 'Sedang dipakai atau dalam perawatan.',
+            'cta' => 'Tanya jadwal berikutnya',
         ],
     ],
 ];

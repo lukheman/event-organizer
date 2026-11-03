@@ -27,6 +27,10 @@ class Service extends Model
 
     public function photoUrl(): ?string
     {
+        if ($this->photo && filter_var($this->photo, FILTER_VALIDATE_URL)) {
+            return $this->photo;
+        }
+
         return $this->photo && Storage::disk('public')->exists($this->photo)
             ? Storage::disk('public')->url($this->photo)
             : null;

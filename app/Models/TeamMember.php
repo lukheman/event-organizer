@@ -5,6 +5,7 @@ namespace App\Models;
 use Database\Factories\TeamMemberFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class TeamMember extends Model
 {
@@ -16,5 +17,16 @@ class TeamMember extends Model
     protected function casts(): array
     {
         return ['is_active' => 'boolean'];
+    }
+
+    public function photoUrl(): ?string
+    {
+        if ($this->photo && filter_var($this->photo, FILTER_VALIDATE_URL)) {
+            return $this->photo;
+        }
+
+        return $this->photo && Storage::disk('public')->exists($this->photo)
+            ? Storage::disk('public')->url($this->photo)
+            : null;
     }
 }

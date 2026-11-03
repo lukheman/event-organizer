@@ -1,4 +1,4 @@
-<x-layouts.guest title="Masuk Panel Admin — Nusa Event" type="auth">
+<x-layouts.guest title="Masuk Panel Admin — Lini Jaya Event" type="auth">
     <div class="login-container">
         <div class="login-card">
             <!-- Brand Logo -->
@@ -7,7 +7,7 @@
                     <i class="fa-solid fa-box-open"></i>
                 </div>
                 <span class="brand-kicker">Panel Admin</span>
-                <h1>Masuk ke Nusa Event</h1>
+                <h1>Masuk ke Lini Jaya Event</h1>
                 <p>Kelola katalog sewa dan konten website.</p>
             </div>
 
@@ -61,15 +61,11 @@
                 </button>
             </form>
 
-            <!-- Sign Up Link -->
-            <div class="signup-link">
-                Belum punya akun? <a href="{{ route('register') }}">Daftar</a>
-            </div>
         </div>
 
         <p class="login-footer">
             <i class="fa-solid fa-lock"></i>
-            Area khusus pengelola website Nusa Event.
+            Area khusus pengelola website Lini Jaya Event.
         </p>
     </div>
 

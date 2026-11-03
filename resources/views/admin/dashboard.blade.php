@@ -7,17 +7,20 @@
         </x-slot:actions>
     </x-layout.page-header>
 
-    <div class="row g-4 mb-4">
-        <div class="col-md-6 col-lg-3">
-            <x-layout.stat-card icon="fas fa-box-open" label="Total Item Sewa" :value="$stats['rental_items']" variant="primary" />
+    <div class="row g-3 mb-4">
+        <div class="col-sm-6 col-lg">
+            <x-layout.stat-card icon="fas fa-calendar-check" label="Layanan EO" :value="$stats['services']" variant="primary" />
         </div>
-        <div class="col-md-6 col-lg-3">
-            <x-layout.stat-card icon="fas fa-circle-check" label="Item Tersedia" :value="$stats['available_rental_items']" variant="success" />
+        <div class="col-sm-6 col-lg">
+            <x-layout.stat-card icon="fas fa-box-open" label="Item Sewa" :value="$stats['rental_items']" variant="primary" />
         </div>
-        <div class="col-md-6 col-lg-3">
+        <div class="col-sm-6 col-lg">
+            <x-layout.stat-card icon="fas fa-circle-check" label="Alat Tersedia" :value="$stats['available_rental_items']" variant="success" />
+        </div>
+        <div class="col-sm-6 col-lg">
             <x-layout.stat-card icon="fas fa-handshake" label="Kerja Sama" :value="$stats['collaborations']" variant="secondary" />
         </div>
-        <div class="col-md-6 col-lg-3">
+        <div class="col-sm-6 col-lg">
             <x-layout.stat-card icon="fas fa-quote-left" label="Testimoni" :value="$stats['testimonials']" variant="warning" />
         </div>
     </div>

@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Collaboration;
+use App\Models\CollaborationPhoto;
 use App\Models\RentalItem;
 use App\Models\Service;
 use App\Models\SiteSetting;
 use App\Models\SocialLink;
+use App\Models\TeamMember;
 use App\Models\Testimonial;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -23,6 +25,7 @@ class ContentController extends Controller
         'services' => ['title' => 'Layanan', 'model' => Service::class, 'fields' => ['category', 'name', 'slug', 'description', 'features', 'sort_order', 'is_active']],
         'collaborations' => ['title' => 'Kerja Sama', 'model' => Collaboration::class, 'fields' => ['partner_name', 'event_name', 'slug', 'event_date', 'service_category', 'description', 'is_active']],
         'testimonials' => ['title' => 'Testimoni', 'model' => Testimonial::class, 'fields' => ['name', 'organization', 'comment', 'rating', 'is_active']],
+        'team-members' => ['title' => 'Tim Kami', 'model' => TeamMember::class, 'fields' => ['name', 'position', 'photo', 'sort_order', 'is_active']],
         'social-links' => ['title' => 'Media Sosial', 'model' => SocialLink::class, 'fields' => ['platform', 'url', 'icon', 'sort_order', 'is_active']],
     ];
 
@@ -50,10 +53,22 @@ class ContentController extends Controller
         $data = $this->validated($request, $resource);
 
         if ($request->hasFile('photo')) {
-            $data['photo'] = $request->file('photo')->store('rental', 'public');
+            $folder = $resource === 'team-members' ? 'team' : 'rental';
+            $data['photo'] = $request->file('photo')->store($folder, 'public');
         }
 
-        $config['model']::create($data);
+        $record = $config['model']::create($data);
+
+        if ($resource === 'collaborations' && $request->hasFile('photos')) {
+            foreach ($request->file('photos') as $index => $photoFile) {
+                $path = $photoFile->store('collaborations', 'public');
+                $record->photos()->create([
+                    'photo_path' => $path,
+                    'caption' => $request->input('photo_captions.'.$index) ?? $record->event_name,
+                    'sort_order' => $index + 1,
+                ]);
+            }
+        }
 
         return redirect()->route('admin.content.index', $resource)->with('success', $config['title'].' berhasil ditambahkan.');
     }
@@ -61,11 +76,16 @@ class ContentController extends Controller
     public function edit(string $resource, int $id): View
     {
         $config = $this->config($resource);
+        $record = $config['model']::findOrFail($id);
+
+        if ($resource === 'collaborations') {
+            $record->load('photos');
+        }
 
         return view('admin.content.form', [
             'resource' => $resource,
             'config' => $config,
-            'record' => $config['model']::findOrFail($id),
+            'record' => $record,
             'rentalServices' => $this->rentalServices($resource),
         ]);
     }
@@ -81,10 +101,23 @@ class ContentController extends Controller
                 Storage::disk('public')->delete($record->photo);
             }
 
-            $data['photo'] = $request->file('photo')->store('rental', 'public');
+            $folder = $resource === 'team-members' ? 'team' : 'rental';
+            $data['photo'] = $request->file('photo')->store($folder, 'public');
         }
 
         $record->update($data);
+
+        if ($resource === 'collaborations' && $request->hasFile('photos')) {
+            $currentCount = $record->photos()->count();
+            foreach ($request->file('photos') as $index => $photoFile) {
+                $path = $photoFile->store('collaborations', 'public');
+                $record->photos()->create([
+                    'photo_path' => $path,
+                    'caption' => $request->input('photo_captions.'.$index) ?? $record->event_name,
+                    'sort_order' => $currentCount + $index + 1,
+                ]);
+            }
+        }
 
         return redirect()->route('admin.content.index', $resource)->with('success', $config['title'].' berhasil diperbarui.');
     }
@@ -98,9 +131,28 @@ class ContentController extends Controller
             Storage::disk('public')->delete($record->photo);
         }
 
+        if ($resource === 'collaborations') {
+            foreach ($record->photos as $photo) {
+                if ($photo->photo_path && Storage::disk('public')->exists($photo->photo_path)) {
+                    Storage::disk('public')->delete($photo->photo_path);
+                }
+            }
+        }
+
         $record->delete();
 
         return back()->with('success', $config['title'].' berhasil dihapus.');
+    }
+
+    public function destroyPhoto(int $photoId): RedirectResponse
+    {
+        $photo = CollaborationPhoto::findOrFail($photoId);
+        if ($photo->photo_path && Storage::disk('public')->exists($photo->photo_path)) {
+            Storage::disk('public')->delete($photo->photo_path);
+        }
+        $photo->delete();
+
+        return back()->with('success', 'Foto dokumentasi berhasil dihapus.');
     }
 
     public function settings(): View
@@ -145,10 +197,11 @@ class ContentController extends Controller
     private function validated(Request $request, string $resource): array
     {
         $rules = match ($resource) {
-            'rental-items' => ['service_id' => ['required', 'exists:services,id'], 'category' => ['nullable', Rule::in(array_keys(config('rental.categories')))], 'availability' => ['required', Rule::in(array_keys(config('rental.availability')))], 'name' => ['required', 'string', 'max:255'], 'description' => ['nullable', 'string'], 'photo' => ['nullable', 'image', 'max:2048'], 'sort_order' => ['nullable', 'integer'], 'is_active' => ['nullable', 'boolean']],
-            'services' => ['category' => ['required', 'in:pelatihan,workshop,seminar,penyewaan'], 'name' => ['required', 'string', 'max:255'], 'slug' => ['required', 'string', 'max:255'], 'description' => ['required', 'string'], 'features' => ['nullable', 'string'], 'sort_order' => ['nullable', 'integer'], 'is_active' => ['nullable', 'boolean']],
-            'collaborations' => ['partner_name' => ['required', 'string'], 'event_name' => ['required', 'string'], 'slug' => ['required', 'string'], 'event_date' => ['required', 'date'], 'service_category' => ['nullable', 'string'], 'description' => ['nullable', 'string'], 'is_active' => ['nullable', 'boolean']],
+            'rental-items' => ['service_id' => ['required', 'exists:services,id'], 'category' => ['nullable', Rule::in(array_keys(config('rental.categories')))], 'availability' => ['required', Rule::in(array_keys(config('rental.availability')))], 'name' => ['required', 'string', 'max:255'], 'description' => ['nullable', 'string'], 'price_per_day' => ['nullable', 'integer', 'min:0'], 'photo' => ['nullable', 'image', 'max:2048'], 'sort_order' => ['nullable', 'integer'], 'is_active' => ['nullable', 'boolean']],
+            'services' => ['category' => ['required', 'in:wedding,workshop,seminar,sewa-crew,paket,penyewaan'], 'name' => ['required', 'string', 'max:255'], 'slug' => ['required', 'string', 'max:255'], 'description' => ['required', 'string'], 'features' => ['nullable', 'string'], 'sort_order' => ['nullable', 'integer'], 'is_active' => ['nullable', 'boolean']],
+            'collaborations' => ['partner_name' => ['required', 'string'], 'event_name' => ['required', 'string'], 'slug' => ['required', 'string'], 'event_date' => ['required', 'date'], 'service_category' => ['nullable', 'string'], 'description' => ['nullable', 'string'], 'photos.*' => ['nullable', 'image', 'max:2048'], 'is_active' => ['nullable', 'boolean']],
             'testimonials' => ['name' => ['required', 'string'], 'organization' => ['nullable', 'string'], 'comment' => ['required', 'string'], 'rating' => ['nullable', 'integer', 'between:1,5'], 'is_active' => ['nullable', 'boolean']],
+            'team-members' => ['name' => ['required', 'string', 'max:255'], 'position' => ['required', 'string', 'max:255'], 'photo' => ['nullable', 'image', 'max:2048'], 'sort_order' => ['nullable', 'integer'], 'is_active' => ['nullable', 'boolean']],
             default => ['platform' => ['required', 'string'], 'url' => ['required', 'url'], 'icon' => ['nullable', 'string'], 'sort_order' => ['nullable', 'integer'], 'is_active' => ['nullable', 'boolean']],
         };
         $data = $request->validate($rules);

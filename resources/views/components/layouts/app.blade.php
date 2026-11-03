@@ -553,8 +553,15 @@
         <x-layout.sidebar-section title="Main">
             <x-layout.sidebar-link href="{{ route('dashboard') }}" icon="fas fa-home" :active="request()->routeIs('dashboard')">Dashboard</x-layout.sidebar-link>
             <x-layout.sidebar-link href="{{ route('admin.users') }}" icon="fas fa-users" :active="request()->routeIs('admin.users')">Users</x-layout.sidebar-link>
+        </x-layout.sidebar-section>
+
+        <x-layout.sidebar-section title="Konten Website">
             <x-layout.sidebar-link href="{{ route('admin.content.index', 'rental-items') }}" icon="fas fa-box-open" :active="request()->is('admin/content/rental-items*')">Katalog Sewa</x-layout.sidebar-link>
-            <x-layout.sidebar-link href="{{ route('admin.content.index', 'services') }}" icon="fas fa-calendar-check" :active="request()->is('admin/content/services*') || request()->is('admin/content/collaborations*') || request()->is('admin/content/testimonials*') || request()->is('admin/content/social-links*')">Konten EO</x-layout.sidebar-link>
+            <x-layout.sidebar-link href="{{ route('admin.content.index', 'services') }}" icon="fas fa-calendar-check" :active="request()->is('admin/content/services*')">Layanan EO</x-layout.sidebar-link>
+            <x-layout.sidebar-link href="{{ route('admin.content.index', 'collaborations') }}" icon="fas fa-handshake" :active="request()->is('admin/content/collaborations*')">Kerja Sama</x-layout.sidebar-link>
+            <x-layout.sidebar-link href="{{ route('admin.content.index', 'testimonials') }}" icon="fas fa-quote-left" :active="request()->is('admin/content/testimonials*')">Testimoni</x-layout.sidebar-link>
+            <x-layout.sidebar-link href="{{ route('admin.content.index', 'team-members') }}" icon="fas fa-user-group" :active="request()->is('admin/content/team-members*')">Tim Kami</x-layout.sidebar-link>
+            <x-layout.sidebar-link href="{{ route('admin.content.index', 'social-links') }}" icon="fas fa-share-nodes" :active="request()->is('admin/content/social-links*')">Media Sosial</x-layout.sidebar-link>
             <x-layout.sidebar-link href="{{ route('admin.settings') }}" icon="fas fa-sliders" :active="request()->routeIs('admin.settings*')">Profil & Kontak</x-layout.sidebar-link>
         </x-layout.sidebar-section>
 

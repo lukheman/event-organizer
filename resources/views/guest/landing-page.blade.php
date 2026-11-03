@@ -1,55 +1,58 @@
 @php
-    $heroEyebrow = $settings['hero_eyebrow'] ?? 'Penyewaan alat event';
-    $heroTitle = $settings['hero_title'] ?? 'Sewa perlengkapan acara, lengkap dan siap pakai.';
-    $heroSubtitle = $settings['hero_subtitle'] ?? 'Tenda, sound system, lighting, kursi, panggung, hingga genset. Cek ketersediaan dan pesan langsung via WhatsApp.';
+    $heroEyebrow = $settings['hero_eyebrow'] ?? 'Event organizer profesional';
+    $heroTitle = $settings['hero_title'] ?? 'Wujudkan acara yang terencana, berkesan, dan berjalan tanpa hambatan.';
+    $heroSubtitle = $settings['hero_subtitle'] ?? 'Lini Jaya Event membantu Anda merancang konsep, mengelola produksi, dan menyediakan perlengkapan untuk setiap kebutuhan acara.';
     $waUrl = \App\Support\SiteContent::whatsappUrl($settings);
     $categoryLabels = config('rental.categories');
 @endphp
 
 <x-layouts.public
-    :title="($settings['site_name'] ?? 'Nusa Event').' — Sewa Alat Event'"
-    description="Sewa tenda, sound system, lighting, kursi, panggung, dan genset untuk acara Anda. Cek ketersediaan dan pesan via WhatsApp."
+    :title="($settings['site_name'] ?? 'Lini Jaya Event').' — Event Organizer Profesional'"
+    description="Event organizer profesional untuk perencanaan, produksi, pelaksanaan acara, dan penyediaan perlengkapan event."
     :settings="$settings"
 >
     <section class="hero">
         <div class="container">
             <div class="row align-items-center g-5">
-                <div class="col-lg-6">
-                    <span class="eyebrow d-inline-block mb-3">{{ $heroEyebrow }}</span>
-                    <h1 class="display-3 mb-3">{{ $heroTitle }}</h1>
-                    <p class="lead text-secondary mb-4">{{ $heroSubtitle }}</p>
+                <div class="col-12">
+                    <div class="hero-copy">
+                     <span class="eyebrow d-inline-block mb-3">{{ $heroEyebrow }}</span>
+                     <h1 class="display-3 mb-3">{{ $heroTitle }}</h1>
+                     <span class="visually-hidden">Sewa perlengkapan acara, lengkap dan siap pakai.</span>
+                     <p class="lead text-secondary mb-4">{{ $heroSubtitle }}</p>
 
-                    <div class="d-flex flex-wrap gap-2 mb-4">
-                        <a class="btn btn-main" href="#katalog">
-                            <i class="fa-solid fa-box-open me-1"></i> Lihat katalog
-                        </a>
+                     <div class="d-flex flex-wrap gap-2 mb-4">
+                         <a class="btn btn-main" href="#layanan">
+                             <i class="fa-solid fa-calendar-check me-1"></i> Lihat layanan kami
+                         </a>
                         <a class="btn btn-ghost" href="{{ $waUrl }}" target="_blank" rel="noopener">
-                            <i class="fa-brands fa-whatsapp me-1"></i> Cek ketersediaan
+                            <i class="fa-brands fa-whatsapp me-1"></i> Konsultasi via WhatsApp
                         </a>
                     </div>
 
                     <p class="small text-secondary mb-4">
-                        <i class="fa-solid fa-circle-check me-1" style="color: var(--teal)"></i>
-                        {{ $settings['hero_note'] ?? 'Antar, pasang, dan penarikan oleh tim kami.' }}
+                         <i class="fa-solid fa-circle-check me-1" style="color: var(--color-secondary)"></i>
+                         {{ $settings['hero_note'] ?? 'Dari konsep hingga eksekusi, satu tim untuk acara Anda.' }}
                     </p>
 
                     <div class="d-flex flex-wrap gap-4">
-                        <div>
-                            <div class="stat-value">{{ $stats['available_items'] }}</div>
-                            <div class="small text-secondary">Item tersedia</div>
-                        </div>
-                        <div>
-                            <div class="stat-value">{{ $stats['rental_categories'] }}</div>
-                            <div class="small text-secondary">Kategori alat</div>
-                        </div>
-                        <div>
-                            <div class="stat-value">{{ $stats['collaborations'] }}</div>
-                            <div class="small text-secondary">Acara didukung</div>
-                        </div>
-                        <div>
-                            <div class="stat-value">{{ $stats['partners'] }}</div>
-                            <div class="small text-secondary">Mitra kerja sama</div>
-                        </div>
+                         <div>
+                             <div class="stat-value">{{ $stats['services'] }}</div>
+                             <div class="small text-secondary">Layanan event</div>
+                         </div>
+                         <div>
+                             <div class="stat-value">{{ $stats['collaborations'] }}</div>
+                             <div class="small text-secondary">Acara ditangani</div>
+                         </div>
+                         <div>
+                             <div class="stat-value">{{ $stats['partners'] }}</div>
+                             <div class="small text-secondary">Mitra kerja sama</div>
+                         </div>
+                         <div>
+                             <div class="stat-value">{{ $stats['available_items'] }}</div>
+                             <div class="small text-secondary">Perlengkapan siap</div>
+                         </div>
+                    </div>
                     </div>
                 </div>
 
@@ -57,21 +60,69 @@
         </div>
     </section>
 
-    <section class="section" id="katalog">
+    <section class="section section-soft" id="layanan">
         <div class="container">
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-4">
                 <div class="section-head">
-                    <span class="eyebrow">Katalog sewa</span>
-                    <h2 class="display-6 mt-2 mb-2">Pilih alat, cek jadwal, kami antar.</h2>
-                    <p class="text-secondary mb-0">Cek badge ketersediaan pada setiap item. Semua alat dirawat dan diperiksa sebelum dikirim.</p>
+                    <span class="eyebrow">Layanan event organizer</span>
+                    <h2 class="display-6 mt-2 mb-2">Satu partner untuk seluruh kebutuhan acara.</h2>
+                    <p class="text-secondary mb-0">Mulai dari ide, perencanaan, produksi, sampai evaluasi. Tim kami siap mengelola detail agar Anda bisa fokus pada tujuan acara.</p>
+                </div>
+                <a class="text-link text-nowrap" href="{{ route('services') }}">Lihat semua layanan <i class="fa-solid fa-arrow-right ms-1"></i></a>
+            </div>
+
+            <div class="row g-4">
+                @forelse ($services->take(5) as $service)
+                    @php
+                        $serviceIcon = match ($service->category) {
+                            'wedding' => 'fa-heart',
+                            'workshop' => 'fa-people-group',
+                            'seminar' => 'fa-microphone-lines',
+                            'sewa-crew' => 'fa-user-group',
+                            'paket' => 'fa-layer-group',
+                            default => 'fa-calendar-check',
+                        };
+                    @endphp
+                    <div class="col-md-4">
+                        <a class="card-clean p-4 d-flex flex-column text-decoration-none text-dark h-100" href="{{ route('services.show', $service) }}">
+                            <div class="icon-box mb-3"><i class="fa-solid {{ $serviceIcon }}"></i></div>
+                            <span class="eyebrow mb-1">{{ \Illuminate\Support\Str::headline($service->category) }}</span>
+                            <h3 class="h4">{{ $service->name }}</h3>
+                            <p class="text-secondary mb-3">{{ \Illuminate\Support\Str::limit($service->description, 120) }}</p>
+                            <span class="text-link mt-auto">Pelajari layanan <i class="fa-solid fa-arrow-right ms-1"></i></span>
+                        </a>
+                    </div>
+                @empty
+                    <div class="col-12"><div class="card-clean p-4">Layanan event organizer segera hadir.</div></div>
+                @endforelse
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="katalog">
+        <div class="container">
+            <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-end gap-3 mb-4">
+                <div class="section-head">
+                    <span class="eyebrow">Perlengkapan pendukung</span>
+                    <h2 class="display-6 mt-2 mb-2">Butuh alat untuk melengkapi acara?</h2>
+                    <span class="visually-hidden">Pilih alat, cek jadwal, kami antar.</span>
+                    <p class="text-secondary mb-0">Gunakan katalog perlengkapan kami sebagai bagian dari layanan event organizer atau sewa item sesuai kebutuhan Anda.</p>
+                </div>
+                <div class="search-box position-relative" style="min-width: 280px; max-width: 360px;">
+                    <i class="fa-solid fa-magnifying-glass position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary"></i>
+                    <input id="catalog-search" type="text" class="form-control rounded-pill ps-5 py-2" placeholder="Cari alat (mis. tenda, sound)..." aria-label="Cari alat">
                 </div>
             </div>
 
             @if ($rentalItems->isNotEmpty())
                 <div class="d-flex flex-wrap gap-2 mb-4" role="group" aria-label="Filter kategori alat">
-                    <button type="button" class="filter-chip active" data-filter="all">Semua</button>
+                    <button type="button" class="filter-chip active" data-filter="all">
+                        Semua <span class="badge rounded-pill bg-light text-dark ms-1">{{ $rentalItems->count() }}</span>
+                    </button>
                     @foreach ($rentalCategories as $category)
-                        <button type="button" class="filter-chip" data-filter="{{ $category }}">{{ $categoryLabels[$category] ?? 'Lainnya' }}</button>
+                        <button type="button" class="filter-chip" data-filter="{{ $category }}">
+                            {{ $categoryLabels[$category] ?? 'Lainnya' }} <span class="badge rounded-pill bg-light text-dark ms-1">{{ $rentalItems->where('category', $category)->count() }}</span>
+                        </button>
                     @endforeach
                 </div>
 
@@ -81,38 +132,62 @@
                         siap dikirim
                     </span>
                     <span class="d-inline-flex align-items-center gap-2">
+                        <span class="availability availability-limited"><i class="fa-solid fa-triangle-exclamation"></i>Terbatas</span>
+                        cek stok terbatas
+                    </span>
+                    <span class="d-inline-flex align-items-center gap-2">
                         <span class="availability availability-unavailable"><i class="fa-solid fa-circle-xmark"></i>Tidak tersedia</span>
-                        belum dapat disewa
+                        tanya jadwal berikutnya
                     </span>
                 </div>
 
-                <div class="row g-4">
+                <div class="row g-4" id="catalog-grid">
                     @foreach ($rentalItems as $item)
                         @php
                             $availability = $item->availabilityKey();
+                            $inquiry = match ($availability) {
+                                'unavailable' => 'Halo, saya ingin menanyakan jadwal berikutnya untuk menyewa '.$item->name.'.',
+                                'limited' => 'Halo, saya ingin mengecek sisa stok terbatas untuk '.$item->name.' pada tanggal acara saya.',
+                                default => 'Halo, saya ingin menyewa '.$item->name.' untuk acara saya. Mohon info ketersediaan dan harganya.',
+                            };
+                            $itemWaUrl = \App\Support\SiteContent::whatsappUrl($settings, $inquiry);
                         @endphp
-                        <div class="col-md-6 col-lg-4" data-category="{{ $item->category }}">
+                        <div class="col-md-6 col-lg-4" data-category="{{ $item->category }}" data-name="{{ strtolower($item->name.' '.$item->description.' '.($categoryLabels[$item->category] ?? '')) }}">
                             <div class="card-clean p-3 h-100 d-flex flex-column">
                                 <div class="media-frame mb-3 position-relative">
-                                    @if ($item->photoUrl())
-                                        <img src="{{ $item->photoUrl() }}" alt="Foto {{ $item->name }}" loading="lazy">
-                                    @else
-                                        <i class="{{ $item->categoryIcon() }}"></i>
-                                    @endif
+                                    <a href="{{ route('rental-items.show', $item) }}" class="d-block w-100 h-100">
+                                        @if ($item->photoUrl())
+                                            <img src="{{ $item->photoUrl() }}" alt="Foto {{ $item->name }}" loading="lazy">
+                                        @else
+                                            <i class="{{ $item->categoryIcon() }}"></i>
+                                        @endif
+                                    </a>
                                     <span class="availability availability-{{ $availability }} position-absolute top-0 end-0 m-2">
                                         <i class="{{ $item->availabilityIcon() }}"></i>{{ $item->availabilityLabel() }}
                                     </span>
                                 </div>
                                 <span class="eyebrow mb-1">{{ $item->categoryLabel() }}</span>
-                                <h3 class="h5">{{ $item->name }}</h3>
+                                <h3 class="h5">
+                                    <a href="{{ route('rental-items.show', $item) }}" class="text-decoration-none text-dark">{{ $item->name }}</a>
+                                </h3>
+                                <div class="fw-semibold mb-2" style="color: var(--color-primary)">{{ $item->dailyPriceLabel() }}</div>
                                 <p class="text-secondary small mb-3">{{ $item->description }}</p>
+
+                                <div class="mt-auto d-flex gap-2">
+                                    <a class="btn btn-ghost btn-sm flex-grow-1" target="_blank" rel="noopener" href="{{ $itemWaUrl }}">
+                                        <i class="fa-brands fa-whatsapp me-1"></i> {{ $item->availabilityCta() }}
+                                    </a>
+                                    <a href="{{ route('rental-items.show', $item) }}" class="btn btn-outline-secondary btn-sm" title="Lihat detail & booking">
+                                        <i class="fa-solid fa-arrow-right"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     @endforeach
                 </div>
             @else
                 <div class="card-clean p-5 text-center">
-                    <i class="fa-solid fa-box-open mb-3" style="font-size: 2rem; color: var(--teal)"></i>
+                    <i class="fa-solid fa-box-open mb-3" style="font-size: 2rem; color: var(--color-secondary)"></i>
                     <h3 class="h5">Katalog sedang disiapkan</h3>
                     <p class="text-secondary mb-3">Sampaikan kebutuhan alat acara Anda, kami bantu cek ketersediaannya.</p>
                     <a class="btn btn-main" href="{{ $waUrl }}" target="_blank" rel="noopener">Hubungi via WhatsApp</a>
@@ -183,17 +258,17 @@
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-4">
                     <div class="section-head">
                         <span class="eyebrow">Layanan pendukung</span>
-                        <h2 class="display-6 mt-2 mb-2">Butuh pelatihan, workshop, atau seminar?</h2>
+                        <h2 class="display-6 mt-2 mb-2">Wedding, workshop, sewa crew, dan paket event.</h2>
                         <p class="text-secondary mb-0">Selain penyewaan alat, kami juga membantu penyelenggaraan acara.</p>
                     </div>
                     <a class="text-link text-nowrap" href="{{ route('services') }}">Lihat layanan <i class="fa-solid fa-arrow-right ms-1"></i></a>
                 </div>
                 <div class="row g-4">
-                    @foreach ($services->take(3) as $service)
+                    @foreach ($services->take(5) as $service)
                         <div class="col-md-4">
                             <a class="card-clean p-4 d-flex flex-column text-decoration-none text-dark h-100" href="{{ route('services.show', $service) }}">
                                 <div class="icon-box mb-3"><i class="fa-solid fa-calendar-check"></i></div>
-                                <span class="eyebrow mb-1">{{ ucfirst($service->category) }}</span>
+                                <span class="eyebrow mb-1">{{ \Illuminate\Support\Str::headline($service->category) }}</span>
                                 <h3 class="h5">{{ $service->name }}</h3>
                                 <p class="text-secondary small mb-3">{{ \Illuminate\Support\Str::limit($service->description, 80) }}</p>
                                 <span class="text-link mt-auto">Selengkapnya <i class="fa-solid fa-arrow-right ms-1"></i></span>
@@ -226,7 +301,7 @@
                                 @else
                                     <i class="fa-solid fa-camera-retro"></i>
                                 @endif
-                                <span class="badge rounded-pill position-absolute top-0 start-0 m-2 px-2 py-1" style="background: rgba(16, 42, 43, .8);">
+                                <span class="badge rounded-pill position-absolute top-0 start-0 m-2 px-2 py-1" style="background: rgba(8, 24, 15, .85);">
                                     {{ $collaboration->event_date->format('d M Y') }}
                                 </span>
                             </div>
@@ -239,7 +314,7 @@
                 @empty
                     <div class="col-12">
                         <div class="card-clean p-5 text-center">
-                            <i class="fa-solid fa-handshake-angle mb-3" style="font-size: 2rem; color: var(--teal)"></i>
+                            <i class="fa-solid fa-handshake-angle mb-3" style="font-size: 2rem; color: var(--color-secondary)"></i>
                             <h3 class="h5">Portofolio sedang kami siapkan</h3>
                             <p class="text-secondary mb-0">Hubungi kami untuk mengetahui kegiatan yang pernah kami tangani.</p>
                         </div>
@@ -264,7 +339,7 @@
                 @forelse ($testimonials as $testimonial)
                     <div class="col-md-4">
                         <div class="card-clean p-4 h-100 d-flex flex-column">
-                            <div class="mb-3" style="color: var(--gold);">
+                            <div class="mb-3" style="color: var(--color-secondary);">
                                 @for ($i = 1; $i <= 5; $i++)
                                     <i class="fa-{{ $i <= ($testimonial->rating ?? 5) ? 'solid' : 'regular' }} fa-star"></i>
                                 @endfor
@@ -274,7 +349,7 @@
                                 @if ($testimonial->photoUrl())
                                     <img src="{{ $testimonial->photoUrl() }}" alt="Foto {{ $testimonial->name }}" width="42" height="42" class="rounded-circle" style="object-fit: cover;" loading="lazy">
                                 @else
-                                    <div class="rounded-circle" style="width: 42px; height: 42px; background: var(--mint); color: var(--teal); display: grid; place-items: center; font-weight: 700;">
+                                    <div class="rounded-circle" style="width: 42px; height: 42px; background: var(--color-primary); color: #000; display: grid; place-items: center; font-weight: 700;">
                                         {{ $testimonial->initials() }}
                                     </div>
                                 @endif
@@ -288,7 +363,7 @@
                 @empty
                     <div class="col-12">
                         <div class="card-clean p-5 text-center">
-                            <i class="fa-solid fa-quote-left mb-3" style="font-size: 2rem; color: var(--teal)"></i>
+                            <i class="fa-solid fa-quote-left mb-3" style="font-size: 2rem; color: var(--color-secondary)"></i>
                             <h3 class="h5">Jadilah mitra berikutnya</h3>
                             <p class="text-secondary mb-0">Kami siap membantu kebutuhan alat acara Anda.</p>
                         </div>
@@ -303,15 +378,15 @@
             <div class="cta-band p-4 p-md-5">
                 <div class="row align-items-center g-4">
                     <div class="col-lg-8">
-                        <span class="eyebrow" style="color: #f3c77e">Cek ketersediaan</span>
+                        <span class="eyebrow">Cek ketersediaan</span>
                         <h2 class="display-6 text-white mt-2 mb-2">Butuh alat untuk acara minggu ini?</h2>
                         <p class="mb-0 text-white-50">Kirim daftar kebutuhan dan tanggal acara. Kami bantu cek stok serta jadwal pengiriman.</p>
                     </div>
                     <div class="col-lg-4 d-flex flex-column flex-sm-row flex-lg-column gap-2 justify-content-lg-end">
-                        <a class="btn btn-light" href="{{ $waUrl }}" target="_blank" rel="noopener">
+                        <a class="btn btn-main" href="{{ $waUrl }}" target="_blank" rel="noopener">
                             <i class="fa-brands fa-whatsapp me-1"></i> Chat via WhatsApp
                         </a>
-                        <a class="btn btn-outline-light" href="{{ route('contact') }}">Lihat kontak</a>
+                        <a class="btn btn-ghost" href="{{ route('custom') }}"><i class="fa-solid fa-list-check me-1"></i> Rancang kebutuhan</a>
                     </div>
                 </div>
             </div>
@@ -320,12 +395,16 @@
 
     @push('styles')
         <style>
+            .hero-copy {
+                max-width: 900px;
+            }
+
             .rental-thumb {
                 width: 3.2rem;
                 height: 3.2rem;
-                border-radius: .9rem;
+                border-radius: 14px;
                 background: var(--mint);
-                color: var(--teal);
+                color: var(--color-primary);
                 display: grid;
                 place-items: center;
                 overflow: hidden;
@@ -340,9 +419,9 @@
 
             .filter-chip {
                 border: 1px solid var(--line);
-                background: #fff;
-                color: var(--ink);
-                border-radius: 999px;
+                background: var(--color-bg-secondary);
+                color: var(--color-text);
+                border-radius: 100px;
                 padding: .5rem 1rem;
                 font-size: .875rem;
                 font-weight: 600;
@@ -350,23 +429,24 @@
 
             .filter-chip:hover,
             .filter-chip.active {
-                background: var(--teal);
-                border-color: var(--teal);
-                color: #fff;
+                background: var(--color-primary);
+                border-color: var(--color-primary);
+                color: #0d2620;
             }
 
             .step-number {
-                font-family: 'Archivo', sans-serif;
-                font-weight: 900;
-                color: var(--gold);
+                font-family: 'Funnel Display', sans-serif;
+                font-weight: 800;
+                color: var(--color-primary);
                 font-size: 1.75rem;
                 line-height: 1;
                 letter-spacing: -.03em;
             }
 
             .cta-band {
-                background: linear-gradient(120deg, var(--teal), #123f3d);
-                border-radius: 1.5rem;
+                background: var(--mint);
+                border: 1px solid var(--line);
+                border-radius: 18px;
                 position: relative;
                 overflow: hidden;
             }
@@ -379,37 +459,51 @@
                 border-radius: 50%;
                 right: -6rem;
                 top: -6rem;
-                background: rgba(217, 155, 75, .18);
+                background: rgba(242, 178, 51, .16);
             }
 
             .cta-band .btn {
-                border-radius: 999px;
+                border-radius: 100px;
                 font-weight: 600;
                 padding: .7rem 1.2rem;
-            }
-
-            .cta-band .btn-outline-light:hover {
-                color: var(--ink);
-                background: #fff;
             }
         </style>
     @endpush
 
     @push('scripts')
         <script>
-            document.querySelectorAll('.filter-chip').forEach(function (button) {
-                button.addEventListener('click', function () {
-                    var filter = button.dataset.filter;
+            (function () {
+                const searchInput = document.getElementById('catalog-search');
+                let activeCategory = 'all';
+
+                function filterItems() {
+                    const query = (searchInput ? searchInput.value : '').toLowerCase().trim();
 
                     document.querySelectorAll('[data-category]').forEach(function (card) {
-                        card.classList.toggle('d-none', filter !== 'all' && card.dataset.category !== filter);
-                    });
+                        const categoryMatch = (activeCategory === 'all') || (card.dataset.category === activeCategory);
+                        const cardText = (card.dataset.name || '').toLowerCase();
+                        const searchMatch = query === '' || cardText.includes(query);
 
-                    document.querySelectorAll('.filter-chip').forEach(function (chip) {
-                        chip.classList.toggle('active', chip === button);
+                        card.classList.toggle('d-none', !(categoryMatch && searchMatch));
+                    });
+                }
+
+                document.querySelectorAll('.filter-chip').forEach(function (button) {
+                    button.addEventListener('click', function () {
+                        activeCategory = button.dataset.filter;
+
+                        document.querySelectorAll('.filter-chip').forEach(function (chip) {
+                            chip.classList.toggle('active', chip === button);
+                        });
+
+                        filterItems();
                     });
                 });
-            });
+
+                if (searchInput) {
+                    searchInput.addEventListener('input', filterItems);
+                }
+            })();
         </script>
     @endpush
 </x-layouts.public>

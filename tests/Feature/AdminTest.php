@@ -12,17 +12,15 @@ test('the landing page renders with its styles', function () {
         ->assertSee('.hero {', false);
 });
 
-test('guests can view the login and register pages', function () {
+test('guests can view the login page and registration is disabled', function () {
     $this->get('/login')
         ->assertOk()
-        ->assertSee('Masuk ke Nusa Event')
+        ->assertSee('Masuk ke Lini Jaya Event')
         ->assertSee('Panel Admin')
         ->assertSee('function togglePassword', false);
 
     $this->get('/register')
-        ->assertOk()
-        ->assertSee('Buat akun pengelola')
-        ->assertSee('function togglePassword', false);
+        ->assertNotFound();
 });
 
 test('admin pages require authentication', function () {
@@ -66,19 +64,6 @@ test('users can log in', function () {
     ])->assertRedirect('/admin/dashboard');
 
     $this->assertAuthenticatedAs($user);
-});
-
-test('users can register', function () {
-    $this->post('/register', [
-        'name' => 'New User',
-        'email' => 'new@example.com',
-        'password' => 'password123',
-        'password_confirmation' => 'password123',
-        'agree_terms' => '1',
-    ])->assertRedirect('/admin/dashboard');
-
-    $this->assertAuthenticated();
-    expect(User::where('email', 'new@example.com')->exists())->toBeTrue();
 });
 
 test('users can be created updated and deleted', function () {

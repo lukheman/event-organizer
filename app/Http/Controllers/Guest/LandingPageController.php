@@ -39,6 +39,7 @@ class LandingPageController extends Controller
                 'rental_items' => $rentalItems->count(),
                 'available_items' => $rentalItems->where('availability', 'available')->count(),
                 'rental_categories' => $rentalItems->pluck('category')->filter()->unique()->count(),
+                'services' => Service::query()->where('is_active', true)->where('category', '!=', 'penyewaan')->count(),
                 'collaborations' => Collaboration::query()->where('is_active', true)->count(),
                 'partners' => Collaboration::query()->where('is_active', true)->distinct()->count('partner_name'),
             ],

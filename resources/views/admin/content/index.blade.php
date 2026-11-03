@@ -23,13 +23,20 @@
                     @forelse ($records as $record)
                         <tr>
                             <td>
-                                <strong>{{ $record->name ?? $record->event_name ?? $record->platform }}</strong>
-                                @if ($resource === 'rental-items')
-                                    <br><small class="text-muted">{{ $record->categoryLabel() }}</small>
-                                @endif
+                                <div class="d-flex align-items-center gap-2">
+                                    @if (method_exists($record, 'photoUrl') && $record->photoUrl())
+                                        <img src="{{ $record->photoUrl() }}" alt="{{ $record->name }}" class="rounded" style="width: 36px; height: 36px; object-fit: cover;">
+                                    @endif
+                                    <div>
+                                        <strong>{{ $record->name ?? $record->event_name ?? $record->platform }}</strong>
+                                        @if ($resource === 'rental-items')
+                                            <br><small class="text-muted">{{ $record->categoryLabel() }}</small>
+                                        @endif
+                                    </div>
+                                </div>
                             </td>
                             <td class="text-muted">
-                                {{ $record->organization ?? $record->partner_name ?? $record->url ?? Str::limit($record->description ?? '', 70) }}
+                                {{ $record->position ?? $record->organization ?? $record->partner_name ?? $record->url ?? Str::limit($record->description ?? '', 70) }}
                             </td>
                             <td>
                                 <span class="badge bg-{{ $record->is_active ? 'success' : 'secondary' }}">

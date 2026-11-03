@@ -1,7 +1,10 @@
 <?php
 
+use App\Models\Collaboration;
+use App\Models\CollaborationPhoto;
 use App\Models\RentalItem;
 use App\Models\Service;
+use App\Models\TeamMember;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -102,4 +105,59 @@ it('allows admin to update rental availability status', function () {
     expect($item->fresh()->availability)->toBe('unavailable');
 
     $this->get('/')->assertSuccessful()->assertSee('Tidak tersedia')->assertSee('Tanya jadwal berikutnya');
+});
+
+it('allows admin to manage team members', function () {
+    Storage::fake('public');
+    $this->actingAs(User::factory()->create());
+
+    $this->post(route('admin.content.store', 'team-members'), [
+        'name' => 'Aditya Pratama',
+        'position' => 'Technical Director',
+        'photo' => UploadedFile::fake()->image('aditya.jpg'),
+        'sort_order' => 1,
+        'is_active' => 1,
+    ])->assertRedirect(route('admin.content.index', 'team-members'));
+
+    $member = TeamMember::where('name', 'Aditya Pratama')->firstOrFail();
+    expect($member->position)->toBe('Technical Director')
+        ->and($member->is_active)->toBeTrue();
+
+    Storage::disk('public')->assertExists($member->photo);
+
+    $this->get(route('about'))
+        ->assertSuccessful()
+        ->assertSee('Aditya Pratama')
+        ->assertSee('Technical Director');
+});
+
+it('allows admin to upload and delete collaboration photos', function () {
+    Storage::fake('public');
+    $this->actingAs(User::factory()->create());
+
+    $this->post(route('admin.content.store', 'collaborations'), [
+        'partner_name' => 'Universitas Indonesia',
+        'event_name' => 'Seminar Nasional 2026',
+        'slug' => 'seminar-nasional-2026',
+        'event_date' => '2026-05-10',
+        'service_category' => 'seminar',
+        'description' => 'Seminar dengan 500 peserta.',
+        'photos' => [
+            UploadedFile::fake()->image('photo1.jpg'),
+            UploadedFile::fake()->image('photo2.jpg'),
+        ],
+        'is_active' => 1,
+    ])->assertRedirect(route('admin.content.index', 'collaborations'));
+
+    $collab = Collaboration::where('slug', 'seminar-nasional-2026')->firstOrFail();
+    expect($collab->photos()->count())->toBe(2);
+
+    $photoToDelete = $collab->photos()->first();
+    Storage::disk('public')->assertExists($photoToDelete->photo_path);
+
+    $this->delete(route('admin.content.photos.destroy', $photoToDelete->id))
+        ->assertRedirect();
+
+    expect(CollaborationPhoto::find($photoToDelete->id))->toBeNull();
+    Storage::disk('public')->assertMissing($photoToDelete->photo_path);
 });
