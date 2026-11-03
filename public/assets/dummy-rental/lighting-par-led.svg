@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" role="img" aria-labelledby="title desc">
+    <title id="title">Lighting Par LED</title>
+    <desc id="desc">Ilustrasi tiga lampu par LED yang digantung pada truss dengan pancaran warna.</desc>
+    <defs>
+        <linearGradient id="bg" x1="0" x2="1">
+            <stop stop-color="#f9e8c9"/>
+            <stop offset="1" stop-color="#f3c8a8"/>
+        </linearGradient>
+    </defs>
+    <rect width="1200" height="750" fill="url(#bg)"/>
+    <path d="M150 630h900" stroke="#102a2b" stroke-width="10" stroke-linecap="round" opacity=".18"/>
+    <g stroke="#102a2b" stroke-width="14" stroke-linecap="round">
+        <path d="M180 170h840M180 230h840M180 170l60 60M240 170l-60 60M300 170l60 60M360 170l-60 60M420 170l60 60M480 170l-60 60M540 170l60 60M600 170l-60 60M660 170l60 60M720 170l-60 60M780 170l60 60M840 170l-60 60M900 170l60 60M960 170l-60 60M180 230l60-60M240 230l-60-60M300 230l60-60M360 230l-60-60M420 230l60-60M480 230l-60-60M540 230l60-60M600 230l-60-60M660 230l60-60M720 230l-60-60M780 230l60-60M840 230l-60-60M900 230l60-60M960 230l-60-60"/>
+    </g>
+    <g>
+        <polygon points="330,270 410,270 560,640 180,640" fill="#e8a536" opacity=".28"/>
+        <circle cx="370" cy="270" r="14" fill="#102a2b"/>
+        <path d="M330 270h80l22 74H308Z" fill="#102a2b"/>
+        <rect x="308" y="344" width="124" height="44" rx="12" fill="#173638" stroke="#fff" stroke-width="8"/>
+        <ellipse cx="370" cy="366" rx="42" ry="12" fill="#f4c879"/>
+    </g>
+    <g>
+        <polygon points="560,270 640,270 830,640 390,640" fill="#4fc3b8" opacity=".24"/>
+        <circle cx="600" cy="270" r="14" fill="#102a2b"/>
+        <path d="M560 270h80l22 74H538Z" fill="#102a2b"/>
+        <rect x="538" y="344" width="124" height="44" rx="12" fill="#173638" stroke="#fff" stroke-width="8"/>
+        <ellipse cx="600" cy="366" rx="42" ry="12" fill="#a8efe6"/>
+    </g>
+    <g>
+        <polygon points="790,270 870,270 1020,640 640,640" fill="#e06c9f" opacity=".22"/>
+        <circle cx="830" cy="270" r="14" fill="#102a2b"/>
+        <path d="M790 270h80l22 74H768Z" fill="#102a2b"/>
+        <rect x="768" y="344" width="124" height="44" rx="12" fill="#173638" stroke="#fff" stroke-width="8"/>
+        <ellipse cx="830" cy="366" rx="42" ry="12" fill="#f6b3cf"/>
+    </g>
+    <text x="70" y="105" fill="#0d6865" font-family="Arial, sans-serif" font-size="46" font-weight="bold">LIGHTING PAR LED</text>
+</svg>

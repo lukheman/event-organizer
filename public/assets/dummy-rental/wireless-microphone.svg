@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" role="img" aria-labelledby="title desc">
+    <title id="title">Wireless Microphone</title>
+    <desc id="desc">Ilustrasi mikrofon nirkabel genggam beserta receiver.</desc>
+    <defs>
+        <linearGradient id="bg" x1="0" x2="1">
+            <stop stop-color="#dce9f5"/>
+            <stop offset="1" stop-color="#b8d4ed"/>
+        </linearGradient>
+        <linearGradient id="body" x1="0" y1="0" x2="1" y2="1">
+            <stop stop-color="#1d4446"/>
+            <stop offset=".55" stop-color="#173638"/>
+            <stop offset="1" stop-color="#0b1f20"/>
+        </linearGradient>
+    </defs>
+    <rect width="1200" height="750" fill="url(#bg)"/>
+    <ellipse cx="600" cy="642" rx="420" ry="38" fill="#0d6865" opacity=".12"/>
+    <g transform="rotate(-14 610 380)">
+        <rect x="592" y="150" width="36" height="26" fill="#102a2b"/>
+        <circle cx="610" cy="190" r="66" fill="#102a2b" stroke="#0d6865" stroke-width="12"/>
+        <path d="M554 168q56-34 112 0M548 196q62-34 124 0M554 224q56-34 112 0" fill="none" stroke="#0d6865" stroke-width="7" opacity=".8"/>
+        <rect x="566" y="248" width="88" height="30" rx="10" fill="#d99b4b"/>
+        <path d="M572 278h76l34 250q4 34-30 52H568q-34-18-30-52Z" fill="url(#body)" stroke="#0d6865" stroke-width="12" stroke-linejoin="round"/>
+        <path d="M582 306h32v196h-22Z" fill="#fff" opacity=".12"/>
+        <circle cx="610" cy="380" r="20" fill="#0d6865" stroke="#4fc3b8" stroke-width="5"/>
+        <path d="M588 450h44" stroke="#0d6865" stroke-width="9" stroke-linecap="round"/>
+        <path d="M584 516h52" stroke="#0d6865" stroke-width="9" stroke-linecap="round"/>
+    </g>
+    <path d="M730 182q56 30 56 92M768 150q82 44 82 124" fill="none" stroke="#0d6865" stroke-width="14" stroke-linecap="round" opacity=".45"/>
+    <g>
+        <rect x="770" y="470" width="250" height="130" rx="18" fill="#102a2b" stroke="#0d6865" stroke-width="12"/>
+        <rect x="798" y="500" width="120" height="52" rx="8" fill="#0d6865"/>
+        <path d="M812 526h72" stroke="#fff" stroke-width="8" stroke-linecap="round" opacity=".75"/>
+        <path d="M836 512h28" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".45"/>
+        <circle cx="966" cy="526" r="19" fill="#d99b4b"/>
+        <path d="M998 480V400" stroke="#102a2b" stroke-width="10" stroke-linecap="round"/>
+        <circle cx="998" cy="394" r="10" fill="#d99b4b"/>
+    </g>
+    <text x="70" y="105" fill="#0d6865" font-family="Arial, sans-serif" font-size="46" font-weight="bold">WIRELESS MICROPHONE</text>
+</svg>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" role="img" aria-labelledby="title desc">
+    <title id="title">Tenda Sarnafil</title>
+    <desc id="desc">Ilustrasi tenda sarnafil dengan atap melengkung untuk acara komunitas dan bazar.</desc>
+    <defs>
+        <linearGradient id="bg" x1="0" x2="1">
+            <stop stop-color="#d9f0e9"/>
+            <stop offset="1" stop-color="#b6ddd2"/>
+        </linearGradient>
+        <linearGradient id="canopy" x1="0" y1="0" x2="0" y2="1">
+            <stop stop-color="#ffffff"/>
+            <stop offset="1" stop-color="#e8f4ef"/>
+        </linearGradient>
+    </defs>
+    <rect width="1200" height="750" fill="url(#bg)"/>
+    <ellipse cx="600" cy="628" rx="430" ry="42" fill="#0d6865" opacity=".12"/>
+    <path d="M190 430C320 200 880 200 1010 430Z" fill="url(#canopy)" stroke="#0d6865" stroke-width="18" stroke-linejoin="round"/>
+    <path d="M320 297c90-62 470-62 560 0" fill="none" stroke="#0d6865" stroke-width="8" opacity=".28"/>
+    <path d="M190 430h820" stroke="#102a2b" stroke-width="20" stroke-linecap="round"/>
+    <path d="M260 430v170M940 430v170" stroke="#102a2b" stroke-width="20" stroke-linecap="round"/>
+    <path d="M190 430v24q34 26 68 0t68 0t68 0t68 0t68 0t68 0t68 0t68 0t68 0t68 0t68 0t68 0" fill="none" stroke="#d99b4b" stroke-width="12" stroke-linejoin="round"/>
+    <path d="M260 600h-34M940 600h34" stroke="#102a2b" stroke-width="18" stroke-linecap="round"/>
+    <path d="M380 430v140M520 430v140M680 430v140M820 430v140" stroke="#0d6865" stroke-width="10" opacity=".35"/>
+    <path d="M260 520h680" stroke="#0d6865" stroke-width="12" opacity=".5"/>
+    <text x="70" y="105" fill="#0d6865" font-family="Arial, sans-serif" font-size="46" font-weight="bold">TENDA SARNAFIL</text>
+</svg>
