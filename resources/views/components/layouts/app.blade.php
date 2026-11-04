@@ -567,12 +567,8 @@
 
         <x-layout.sidebar-section title="Account">
             <x-layout.sidebar-link href="{{ route('admin.profile') }}" icon="fas fa-user-circle" :active="request()->routeIs('admin.profile')">Profile</x-layout.sidebar-link>
-            <x-layout.sidebar-link href="#settings" icon="fas fa-cog">Settings</x-layout.sidebar-link>
         </x-layout.sidebar-section>
 
-        <x-layout.sidebar-section title="Developer">
-            <x-layout.sidebar-link href="{{ route('admin.components') }}" icon="fas fa-cubes" :active="request()->routeIs('admin.components')">Components</x-layout.sidebar-link>
-        </x-layout.sidebar-section>
     </x-layout.sidebar>
 
     <!-- Main Content -->
