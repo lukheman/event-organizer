@@ -447,6 +447,30 @@
 
             .hero-with-slider .hero-copy {
                 max-width: 780px;
+                color: #fff8e8;
+                text-shadow: 0 2px 18px rgba(0, 0, 0, .5);
+            }
+
+            .hero-with-slider .hero-copy h1 {
+                color: #fff8e8;
+                text-shadow: 0 3px 22px rgba(0, 0, 0, .62);
+            }
+
+            .hero-with-slider .hero-copy .lead,
+            .hero-with-slider .hero-copy .text-secondary,
+            .hero-with-slider .hero-copy .small {
+                color: rgba(255, 250, 237, .92) !important;
+            }
+
+            .hero-with-slider .hero-copy .stat-value {
+                color: #ffc343;
+                text-shadow: 0 2px 12px rgba(0, 0, 0, .55);
+            }
+
+            .hero-with-slider .hero-copy .btn-ghost {
+                color: #fff8e8;
+                border-color: rgba(255, 248, 232, .72);
+                text-shadow: 0 1px 8px rgba(0, 0, 0, .35);
             }
 
             .hero-with-slider .hero-slider {
@@ -482,7 +506,7 @@
                 z-index: 1;
                 pointer-events: none;
                 background:
-                    linear-gradient(90deg, rgba(8, 24, 15, .96) 0%, rgba(8, 24, 15, .86) 42%, rgba(8, 24, 15, .48) 100%),
+                    linear-gradient(90deg, rgba(8, 24, 15, .99) 0%, rgba(8, 24, 15, .92) 42%, rgba(8, 24, 15, .58) 100%),
                     linear-gradient(180deg, rgba(8, 24, 15, .55) 0%, rgba(8, 24, 15, .1) 45%, rgba(8, 24, 15, .85) 100%);
             }
 
