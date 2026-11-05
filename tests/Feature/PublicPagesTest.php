@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Collaboration;
+use App\Models\CollaborationPhoto;
 use App\Models\RentalItem;
 use App\Models\Service;
 use App\Models\SiteSetting;
@@ -10,10 +11,34 @@ use App\Models\Testimonial;
 use Database\Seeders\RentalCatalogSeeder;
 
 it('shows public event organizer pages', function () {
-    $this->get('/')->assertSuccessful()->assertSee('Sewa perlengkapan acara, lengkap dan siap pakai.');
+    $this->get('/')->assertSuccessful()->assertSee('Wujudkan acara yang terencana')->assertSee('hero-with-slider', false);
     $this->get('/tentang')->assertSuccessful()->assertSee('Tentang kami');
     $this->get('/layanan')->assertSuccessful()->assertSee('Layanan');
     $this->get('/kontak')->assertSuccessful()->assertSee('Mari bicarakan acara Anda.');
+});
+
+it('shows the hero background slider from collaboration documentation', function () {
+    $collaboration = Collaboration::create([
+        'partner_name' => 'Mitra Acara',
+        'event_name' => 'Seminar Mitra',
+        'slug' => 'seminar-mitra',
+        'event_date' => now(),
+        'service_category' => 'seminar',
+        'description' => 'Dokumentasi acara mitra.',
+        'is_active' => true,
+    ]);
+
+    CollaborationPhoto::create([
+        'collaboration_id' => $collaboration->id,
+        'photo_path' => 'https://example.com/hero-slide.jpg',
+        'caption' => 'Dokumentasi acara',
+        'sort_order' => 1,
+    ]);
+
+    $this->get('/')
+        ->assertSuccessful()
+        ->assertSee('hero-slider', false)
+        ->assertSee('https://example.com/hero-slide.jpg', false);
 });
 
 it('shows available event packages on package service detail', function () {

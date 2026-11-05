@@ -4,6 +4,16 @@
     $heroSubtitle = $settings['hero_subtitle'] ?? 'Lini Jaya Event membantu Anda merancang konsep, mengelola produksi, dan menyediakan perlengkapan untuk setiap kebutuhan acara.';
     $waUrl = \App\Support\SiteContent::whatsappUrl($settings);
     $categoryLabels = config('rental.categories');
+
+    // Gunakan foto dokumentasi (selain cover) lebih dulu agar tidak sama dengan kartu portofolio.
+    $heroSlides = $collaborations
+        ->flatMap(fn ($collaboration) => $collaboration->photos->skip(1)->map(fn ($photo) => $photo->photoUrl()))
+        ->merge($collaborations->map(fn ($collaboration) => $collaboration->coverUrl()))
+        ->filter()
+        ->unique()
+        ->take(3)
+        ->map(fn ($url) => str_replace('w=1200', 'w=1920', $url))
+        ->values();
 @endphp
 
 <x-layouts.public
@@ -11,14 +21,33 @@
     description="Event organizer profesional untuk perencanaan, produksi, pelaksanaan acara, dan penyediaan perlengkapan event."
     :settings="$settings"
 >
-    <section class="hero">
+    <section class="hero hero-with-slider">
+        @if ($heroSlides->isNotEmpty())
+            <div id="heroSlider" class="carousel slide carousel-fade hero-slider" data-bs-ride="carousel" data-bs-interval="5500">
+                <div class="carousel-inner">
+                    @foreach ($heroSlides as $index => $slide)
+                        <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                            <div class="hero-slide" style="background-image: url('{{ $slide }}');"></div>
+                        </div>
+                    @endforeach
+                </div>
+
+                @if ($heroSlides->count() > 1)
+                    <div class="carousel-indicators">
+                        @foreach ($heroSlides as $index => $slide)
+                            <button type="button" data-bs-target="#heroSlider" data-bs-slide-to="{{ $index }}" class="{{ $index === 0 ? 'active' : '' }}" aria-current="{{ $index === 0 ? 'true' : 'false' }}" aria-label="Tampilkan gambar {{ $index + 1 }}"></button>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+        @endif
+
         <div class="container">
             <div class="row align-items-center g-5">
                 <div class="col-12">
                     <div class="hero-copy">
                      <span class="eyebrow d-inline-block mb-3">{{ $heroEyebrow }}</span>
                      <h1 class="display-3 mb-3">{{ $heroTitle }}</h1>
-                     <span class="visually-hidden">Sewa perlengkapan acara, lengkap dan siap pakai.</span>
                      <p class="lead text-secondary mb-4">{{ $heroSubtitle }}</p>
 
                      <div class="d-flex flex-wrap gap-2 mb-4">
@@ -399,6 +428,136 @@
                 max-width: 900px;
             }
 
+            /* Hero dengan latar gambar bergulir. */
+            .hero-with-slider {
+                display: flex;
+                align-items: center;
+                min-height: clamp(36rem, 86vh, 50rem);
+                padding: 9rem 0 6rem;
+            }
+
+            .hero-with-slider::after {
+                display: none;
+            }
+
+            .hero-with-slider .container {
+                position: relative;
+                z-index: 2;
+            }
+
+            .hero-with-slider .hero-copy {
+                max-width: 780px;
+            }
+
+            .hero-with-slider .hero-slider {
+                position: absolute;
+                inset: 0;
+                z-index: 0;
+                overflow: hidden;
+            }
+
+            .hero-with-slider .hero-slider .carousel-inner,
+            .hero-with-slider .hero-slider .carousel-item,
+            .hero-with-slider .hero-slider .hero-slide {
+                height: 100%;
+                min-height: 0;
+            }
+
+            .hero-with-slider .hero-slider .hero-slide {
+                background-position: center;
+                background-size: cover;
+                transform: translate3d(0, var(--parallax-y, 0px), 0) scale(1.08);
+                transform-origin: center;
+                will-change: transform;
+            }
+
+            .hero-with-slider .hero-slider .hero-slide::after {
+                display: none;
+            }
+
+            .hero-with-slider .hero-slider::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                z-index: 1;
+                pointer-events: none;
+                background:
+                    linear-gradient(90deg, rgba(8, 24, 15, .96) 0%, rgba(8, 24, 15, .86) 42%, rgba(8, 24, 15, .48) 100%),
+                    linear-gradient(180deg, rgba(8, 24, 15, .55) 0%, rgba(8, 24, 15, .1) 45%, rgba(8, 24, 15, .85) 100%);
+            }
+
+            .hero-with-slider .hero-slider .carousel-indicators {
+                bottom: 1.25rem;
+                z-index: 3;
+                margin-bottom: 0;
+            }
+
+            .hero-with-slider .hero-slider .carousel-indicators button {
+                opacity: .4;
+            }
+
+            .hero-with-slider .hero-slider .carousel-indicators button.active {
+                opacity: 1;
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                .hero-with-slider .hero-slider .hero-slide {
+                    transform: none;
+                    will-change: auto;
+                }
+            }
+
+            /* Skala tipografi khusus landing page agar lebih ringkas. */
+            .hero .display-3 {
+                font-size: clamp(34px, 4.6vw, 58px);
+                line-height: 1.06;
+                letter-spacing: -.035em;
+            }
+
+            .hero .lead {
+                font-size: 1.0625rem;
+                line-height: 1.7;
+            }
+
+            .section .display-6 {
+                font-size: clamp(28px, 3.4vw, 44px);
+                line-height: 1.08;
+                letter-spacing: -.03em;
+            }
+
+            .stat-value {
+                font-size: 1.55rem;
+            }
+
+            @media (max-width: 639.98px) {
+                .hero-with-slider {
+                    min-height: 33rem;
+                    padding: 7.5rem 0 3.5rem;
+                }
+
+                .hero-with-slider .hero-slider::before {
+                    background: linear-gradient(180deg, rgba(8, 24, 15, .92) 0%, rgba(8, 24, 15, .78) 55%, rgba(8, 24, 15, .92) 100%);
+                }
+
+                .hero .display-3 {
+                    font-size: clamp(28px, 8.4vw, 36px);
+                    line-height: 1.1;
+                }
+
+                .section .display-6 {
+                    font-size: clamp(23px, 6.4vw, 30px);
+                    line-height: 1.15;
+                }
+
+                .hero .lead {
+                    font-size: 1rem;
+                }
+
+                .stat-value {
+                    font-size: 1.35rem;
+                }
+            }
+
             .rental-thumb {
                 width: 3.2rem;
                 height: 3.2rem;
@@ -503,6 +662,44 @@
                 if (searchInput) {
                     searchInput.addEventListener('input', filterItems);
                 }
+            })();
+        </script>
+        <script>
+            (function () {
+                const hero = document.querySelector('.hero-with-slider');
+                const slides = document.querySelectorAll('.hero-with-slider .hero-slide');
+
+                if (!hero || !slides.length || !('requestAnimationFrame' in window)) {
+                    return;
+                }
+
+                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                    return;
+                }
+
+                let ticking = false;
+
+                function updateParallax() {
+                    const rect = hero.getBoundingClientRect();
+                    const offset = Math.max(-42, Math.min(42, -rect.top * .1));
+
+                    slides.forEach(function (slide) {
+                        slide.style.setProperty('--parallax-y', offset + 'px');
+                    });
+
+                    ticking = false;
+                }
+
+                function requestParallaxUpdate() {
+                    if (!ticking) {
+                        window.requestAnimationFrame(updateParallax);
+                        ticking = true;
+                    }
+                }
+
+                window.addEventListener('scroll', requestParallaxUpdate, { passive: true });
+                window.addEventListener('resize', requestParallaxUpdate, { passive: true });
+                requestParallaxUpdate();
             })();
         </script>
     @endpush

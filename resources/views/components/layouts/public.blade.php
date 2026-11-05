@@ -52,6 +52,7 @@
             color: var(--color-text);
             background: var(--color-bg);
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
         p, .form-control, .btn, .nav-link, .form-select {
@@ -505,6 +506,78 @@
             border-top: 1px solid var(--line);
         }
 
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 6.5rem;
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            .hero .container > * {
+                animation: hero-rise .9s cubic-bezier(.2, .65, .3, 1) both;
+            }
+
+            .hero .container > *:nth-child(2) {
+                animation-delay: .08s;
+            }
+
+            .hero .container > *:nth-child(3) {
+                animation-delay: .16s;
+            }
+
+            .hero .container > *:nth-child(4) {
+                animation-delay: .24s;
+            }
+
+            .hero .container > *:nth-child(5) {
+                animation-delay: .32s;
+            }
+
+            .hero .container > *:nth-child(6) {
+                animation-delay: .4s;
+            }
+
+            .reveal {
+                opacity: 0;
+                transform: translateY(26px);
+                transition:
+                    opacity .7s cubic-bezier(.2, .65, .3, 1),
+                    transform .7s cubic-bezier(.2, .65, .3, 1);
+                transition-delay: var(--reveal-delay, 0ms);
+            }
+
+            .reveal.is-visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes hero-rise {
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            .hero .container > * {
+                animation: none;
+            }
+
+            .reveal {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
         @media (max-width: 991.98px) {
             .navbar-collapse {
                 background: var(--color-bg-secondary);
@@ -516,6 +589,11 @@
         }
 
         @media (max-width: 639.98px) {
+            .container > .row {
+                margin-left: 0;
+                margin-right: 0;
+            }
+
             h1, .display-3 {
                 font-size: clamp(42px, 12vw, 54px);
                 line-height: 1.02;
@@ -647,6 +725,51 @@
 
         window.addEventListener('hashchange', updateActiveMenu);
         updateActiveMenu();
+    })();
+</script>
+<script>
+    (function () {
+        if (!('IntersectionObserver' in window)) {
+            return;
+        }
+
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            return;
+        }
+
+        const candidates = Array.from(document.querySelectorAll([
+            '.section .section-head',
+            '.section .cta-band',
+            '.section .row > [class*="col-"]',
+            '.section > .container > h2'
+        ].join(',')));
+
+        const elements = candidates.filter(function (element) {
+            return !candidates.some(function (other) {
+                return other !== element && other.contains(element);
+            });
+        });
+
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (!entry.isIntersecting) {
+                    return;
+                }
+
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -48px 0px' });
+
+        elements.forEach(function (element) {
+            const siblings = Array.from(element.parentElement.children).filter(function (sibling) {
+                return elements.indexOf(sibling) !== -1;
+            });
+
+            element.style.setProperty('--reveal-delay', Math.min(siblings.indexOf(element), 5) * 70 + 'ms');
+            element.classList.add('reveal');
+            observer.observe(element);
+        });
     })();
 </script>
 </body>
