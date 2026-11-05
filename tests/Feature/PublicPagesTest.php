@@ -11,10 +11,19 @@ use App\Models\Testimonial;
 use Database\Seeders\RentalCatalogSeeder;
 
 it('shows public event organizer pages', function () {
-    $this->get('/')->assertSuccessful()->assertSee('Wujudkan acara yang terencana')->assertSee('hero-with-slider', false);
+    $this->get('/')
+        ->assertSuccessful()
+        ->assertSee('Wujudkan acara yang terencana')
+        ->assertSee('hero-with-slider', false)
+        ->assertSee('Statistik Lini Jaya Event', false)
+        ->assertSee('Perlengkapan siap');
     $this->get('/tentang')->assertSuccessful()->assertSee('Tentang kami');
     $this->get('/layanan')->assertSuccessful()->assertSee('Layanan');
-    $this->get('/kontak')->assertSuccessful()->assertSee('Mari bicarakan acara Anda.');
+    $this->get('/kontak')
+        ->assertSuccessful()
+        ->assertSee('Mari bicarakan acara Anda.')
+        ->assertSee('https://www.google.com/maps?q=', false)
+        ->assertSee('Peta mengikuti alamat kantor.');
 });
 
 it('shows the hero background slider from collaboration documentation', function () {
@@ -143,14 +152,14 @@ it('renders dummy rental image assets when no upload is available', function () 
         'service_id' => $rentalService->id,
         'category' => 'tenda',
         'name' => 'Tenda Dummy',
-        'photo' => 'dummy-rental/tenda.svg',
+        'photo' => 'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1200&q=85',
         'sort_order' => 1,
         'is_active' => true,
     ]);
 
     $this->get('/')
         ->assertSuccessful()
-        ->assertSee('/assets/dummy-rental/tenda.svg', false);
+        ->assertSee('https://images.unsplash.com/photo-1500534623283-312aade485b7', false);
 });
 
 it('hides inactive rental items from the public catalog', function () {

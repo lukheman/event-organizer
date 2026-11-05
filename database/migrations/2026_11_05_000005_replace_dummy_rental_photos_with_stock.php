@@ -1,0 +1,52 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        $photos = [
+            'Tenda Roder VIP 10x20 Meter' => 'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1200&q=85',
+            'Tenda Sarnafil Kerucut 3x3 & 5x5' => 'https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?auto=format&fit=crop&w=1200&q=85',
+            'Tenda Semi Dekorasi Plafon VIP' => 'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=85',
+            'Flooring Kayu & Karpet Buana' => 'https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=85',
+            'AC Standing 5 PK & Misty Fan' => 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=1200&q=85',
+            'Sound System 5.000 Watt' => 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1200&q=85',
+            'Sound System Konser 10.000 Watt' => 'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1200&q=85',
+            'Wireless Microphone UHF Dual Handheld' => 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1200&q=85',
+            'Mic Clip-On & Headset Wireless' => 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=1200&q=85',
+            'Digital Audio Mixer 32 Channel' => 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=85',
+            'Lighting Par LED 54x3W RGBW' => 'https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=1200&q=85',
+            'Moving Head Beam 230W 7R' => 'https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?auto=format&fit=crop&w=1200&q=85',
+            'Follow Spot Light 350W + Stand' => 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=85',
+            'Smoke Machine & Dry Ice Low Fog' => 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=85',
+            'Kursi Futura + Cover Ketat & Pita' => 'https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=1200&q=85',
+            'Kursi Tiffany Putih & Gold VIP' => 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=1200&q=85',
+            'Meja Bundar Banquet D-180 + Taplak' => 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=85',
+            'Meja IBM Seminar 45x180 + Skirting' => 'https://images.unsplash.com/photo-1517502884422-41eaead166d4?auto=format&fit=crop&w=1200&q=85',
+            'LED Screen Videotron P3.9 Indoor / Outdoor' => 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=85',
+            'Proyektor 5.000 Lumens + Layar 3x4 Meter' => 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=85',
+            'Smart TV 55-65 Inch + Standing Bracket' => 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=1200&q=85',
+            'Genset Silent 10 kVA' => 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1200&q=85',
+            'Genset Silent 40 kVA Heavy Duty' => 'https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1200&q=85',
+            'Kabel Distribusi & Box Panel Listrik' => 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1200&q=85',
+            'Panggung Portable Moduler (Tinggi 40 - 100 cm)' => 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=1200&q=85',
+            'Podium Pidato Akrilik Transparan VIP' => 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=1200&q=85',
+            'Mojo Barrier Barricade Panggung' => 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1200&q=85',
+        ];
+
+        foreach ($photos as $name => $photo) {
+            DB::table('rental_items')->where('name', $name)->update([
+                'photo' => $photo,
+                'updated_at' => now(),
+            ]);
+        }
+    }
+
+    public function down(): void
+    {
+        // Keep stock photo URLs on rollback; old dummy assets are removed.
+    }
+};

@@ -637,13 +637,13 @@
         <div id="siteNav" class="collapse navbar-collapse">
             <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
                  <li class="nav-item"><a class="nav-link nav-home {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Beranda</a></li>
+                 <li class="nav-item"><a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">Tentang</a></li>
                  <li class="nav-item"><a class="nav-link nav-section-link {{ request()->routeIs('services*') ? 'active' : '' }}" href="{{ route('home') }}#layanan">Layanan</a></li>
                  <li class="nav-item"><a class="nav-link nav-section-link" href="{{ route('home') }}#katalog">Perlengkapan</a></li>
                  <li class="nav-item"><a class="nav-link {{ request()->routeIs('collaborations*') ? 'active' : '' }}" href="{{ route('collaborations') }}">Kerja Sama</a></li>
                  <li class="nav-item"><a class="nav-link {{ request()->routeIs('testimonials') ? 'active' : '' }}" href="{{ route('testimonials') }}">Testimoni</a></li>
                  <li class="nav-item"><a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">Kontak</a></li>
-                 <li class="nav-item"><a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">Tentang</a></li>
-                <li class="nav-item ms-lg-2">
+                 <li class="nav-item ms-lg-2">
                     <a class="btn btn-main" href="{{ $waUrl }}" target="_blank" rel="noopener">
                         <i class="fa-brands fa-whatsapp me-1"></i> Konsultasi
                     </a>

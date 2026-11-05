@@ -89,6 +89,41 @@
         </div>
     </section>
 
+    <section class="public-stats" aria-label="Statistik Lini Jaya Event">
+        <div class="container">
+            <div class="row g-3">
+                <div class="col-6 col-lg-3">
+                    <div class="public-stat">
+                        <span class="public-stat-icon"><i class="fa-solid fa-calendar-check"></i></span>
+                        <strong>{{ $stats['services'] }}</strong>
+                        <span>Layanan event</span>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="public-stat">
+                        <span class="public-stat-icon"><i class="fa-solid fa-handshake"></i></span>
+                        <strong>{{ $stats['collaborations'] }}</strong>
+                        <span>Acara ditangani</span>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="public-stat">
+                        <span class="public-stat-icon"><i class="fa-solid fa-users"></i></span>
+                        <strong>{{ $stats['partners'] }}</strong>
+                        <span>Mitra kerja sama</span>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="public-stat">
+                        <span class="public-stat-icon"><i class="fa-solid fa-box-open"></i></span>
+                        <strong>{{ $stats['available_items'] }}</strong>
+                        <span>Perlengkapan siap</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="section section-soft" id="layanan">
         <div class="container">
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-4">
@@ -426,6 +461,72 @@
         <style>
             .hero-copy {
                 max-width: 900px;
+            }
+
+            .public-stats {
+                position: relative;
+                z-index: 3;
+                margin-top: -2.5rem;
+                padding-bottom: 1rem;
+            }
+
+            .public-stat {
+                display: flex;
+                align-items: center;
+                gap: .8rem;
+                height: 100%;
+                padding: 1rem 1.1rem;
+                border: 1px solid var(--line);
+                border-radius: 14px;
+                background: rgba(8, 24, 15, .92);
+                box-shadow: rgba(0, 0, 0, .22) 0 10px 24px;
+            }
+
+            .public-stat-icon {
+                display: grid;
+                place-items: center;
+                width: 2.5rem;
+                height: 2.5rem;
+                flex: 0 0 2.5rem;
+                border-radius: 10px;
+                background: var(--color-primary);
+                color: #0d2620;
+            }
+
+            .public-stat strong {
+                display: block;
+                color: var(--color-primary);
+                font-family: 'Funnel Display', sans-serif;
+                font-size: 1.55rem;
+                line-height: 1;
+            }
+
+            .public-stat > span:last-child {
+                color: var(--color-text-secondary);
+                font-size: .78rem;
+                line-height: 1.25;
+            }
+
+            @media (max-width: 639.98px) {
+                .public-stats {
+                    margin-top: -1.25rem;
+                }
+
+                .public-stat {
+                    gap: .55rem;
+                    padding: .8rem;
+                }
+
+                .public-stat-icon {
+                    width: 2rem;
+                    height: 2rem;
+                    flex-basis: 2rem;
+                    font-size: .8rem;
+                }
+
+                .public-stat strong {
+                    font-size: 1.25rem;
+                }
             }
 
             /* Hero dengan latar gambar bergulir. */

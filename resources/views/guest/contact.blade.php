@@ -1,6 +1,8 @@
 @php
     $siteName = $settings['site_name'] ?? 'Lini Jaya Event';
     $waUrl = \App\Support\SiteContent::whatsappUrl($settings, 'Halo, saya ingin berkonsultasi mengenai rencana acara dengan tim '.$siteName.'.');
+    $mapAddress = $settings['address'] ?? 'Makassar';
+    $mapUrl = $settings['map_embed'] ?? 'https://www.google.com/maps?q='.urlencode($mapAddress).'&output=embed';
 @endphp
 
 <x-layouts.public :title="'Kontak — '.$siteName" :settings="$settings">
@@ -83,16 +85,10 @@
                 <div class="col-lg-7">
                     <div class="card-clean p-3 p-md-4 h-100 d-flex flex-column">
                         <span class="eyebrow mb-3">Lokasi kantor</span>
-                        @if (! empty($settings['map_embed']))
-                            <div class="ratio ratio-16x9 rounded-3 overflow-hidden flex-grow-1">
-                                <iframe src="{{ $settings['map_embed'] }}" title="Peta lokasi {{ $siteName }}" loading="lazy"></iframe>
-                            </div>
-                        @else
-                            <div class="rounded-3 d-flex flex-column align-items-center justify-content-center text-center flex-grow-1 p-4" style="background: var(--mint); min-height: 18rem;">
-                                <i class="fa-solid fa-map-location-dot mb-3" style="font-size: 2rem; color: var(--color-primary)"></i>
-                                <p class="text-secondary small mb-0">Peta lokasi belum tersedia. Silakan hubungi kami untuk informasi alamat dan petunjuk arah.</p>
-                            </div>
-                        @endif
+                        <div class="ratio ratio-16x9 rounded-3 overflow-hidden flex-grow-1">
+                            <iframe src="{{ $mapUrl }}" title="Peta lokasi {{ $siteName }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                        <p class="text-secondary small mt-3 mb-0">Peta mengikuti alamat kantor. Hubungi kami sebelum datang untuk memastikan titik lokasi dan jadwal layanan.</p>
                     </div>
                 </div>
             </div>
