@@ -634,24 +634,24 @@
 
             /* Skala tipografi khusus landing page agar lebih ringkas. */
             .hero .display-3 {
-                font-size: clamp(34px, 4.6vw, 58px);
-                line-height: 1.06;
+                font-size: clamp(30px, 4vw, 50px);
+                line-height: 1.08;
                 letter-spacing: -.035em;
             }
 
             .hero .lead {
-                font-size: 1.0625rem;
-                line-height: 1.7;
+                font-size: 1rem;
+                line-height: 1.65;
             }
 
             .section .display-6 {
-                font-size: clamp(28px, 3.4vw, 44px);
-                line-height: 1.08;
+                font-size: clamp(25px, 3vw, 38px);
+                line-height: 1.12;
                 letter-spacing: -.03em;
             }
 
             .stat-value {
-                font-size: 1.55rem;
+                font-size: 1.4rem;
             }
 
             @media (max-width: 639.98px) {
@@ -665,21 +665,21 @@
                 }
 
                 .hero .display-3 {
-                    font-size: clamp(28px, 8.4vw, 36px);
-                    line-height: 1.1;
+                    font-size: clamp(25px, 7.5vw, 32px);
+                    line-height: 1.12;
                 }
 
                 .section .display-6 {
-                    font-size: clamp(23px, 6.4vw, 30px);
-                    line-height: 1.15;
+                    font-size: clamp(21px, 5.8vw, 27px);
+                    line-height: 1.18;
                 }
 
                 .hero .lead {
-                    font-size: 1rem;
+                    font-size: .9375rem;
                 }
 
                 .stat-value {
-                    font-size: 1.35rem;
+                    font-size: 1.2rem;
                 }
             }
 
