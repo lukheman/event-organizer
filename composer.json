@@ -1,6 +1,6 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "adminpro/admin-dashboard",
+    "name": "linyeo/event-organizer",
     "type": "project",
     "description": "A modern Laravel admin dashboard template built with Blade and Bootstrap.",
     "keywords": [

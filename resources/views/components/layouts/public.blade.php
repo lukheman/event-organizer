@@ -1,12 +1,13 @@
 @props([
-    'title' => 'Lini Jaya Event Organizer',
+    'title' => 'LinyEO Organizer',
     'description' => 'Partner event organizer untuk kegiatan yang berkesan.',
     'settings' => [],
     'socialLinks' => [],
+    'bottomBar' => false,
 ])
 
 @php
-    $siteName = $settings['site_name'] ?? 'Lini Jaya Event';
+    $siteName = $settings['site_name'] ?? 'LinyEO';
     $waUrl = \App\Support\SiteContent::whatsappUrl($settings);
 @endphp
 <!doctype html>
@@ -52,12 +53,19 @@
             color: var(--color-text);
             background: var(--color-bg);
             -webkit-font-smoothing: antialiased;
+            -webkit-text-size-adjust: 100%;
             overflow-x: hidden;
+            min-height: 100dvh;
         }
 
-        p, .form-control, .btn, .nav-link, .form-select {
-            font-size: 16px;
-            line-height: 1.75;
+        p {
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .form-control, .nav-link, .form-select {
+            font-size: 1rem;
+            line-height: 1.6;
         }
 
         .text-secondary {
@@ -68,26 +76,29 @@
             border-color: var(--line) !important;
         }
 
-        h1, .display-3 {
-            font-size: clamp(52px, 8.5vw, 96px);
-            line-height: 1.03;
+        /* Skala tipografi mobile-first: ukuran nyaman di layar kecil,
+           lalu bertahap membesar pada tablet dan desktop. */
+        h1, .display-3, .display-4 {
+            font-size: clamp(1.75rem, 7vw, 2.5rem);
+            line-height: 1.1;
         }
 
         h2, .display-6 {
-            font-size: clamp(42px, 6vw, 84px);
-            line-height: .94;
+            font-size: clamp(1.4rem, 5.8vw, 1.9rem);
+            line-height: 1.16;
         }
 
         h3, .display-5 {
-            font-size: clamp(34px, 4.5vw, 66px);
-            line-height: 1;
+            font-size: clamp(1.25rem, 4.8vw, 1.6rem);
+            line-height: 1.2;
         }
 
         h1, h2, h3, h4, h5, h6, .display-font {
             font-family: 'Funnel Display', sans-serif;
             font-weight: 800;
-            letter-spacing: -.045em;
-            line-height: 1.05;
+            letter-spacing: -.035em;
+            line-height: 1.08;
+            text-wrap: balance;
         }
 
         h4, h5, h6 {
@@ -97,28 +108,69 @@
         .display-1, .display-2, .display-3, .display-4, .display-5, .display-6 {
             font-family: 'Funnel Display', sans-serif;
             font-weight: 800;
-            letter-spacing: -.045em;
-            line-height: 1.02;
+            letter-spacing: -.035em;
+            line-height: 1.08;
         }
 
-        .display-1, .display-2, .display-3 {
-            font-size: clamp(52px, 8.5vw, 96px);
+        .h3 {
+            font-size: 1.3rem;
+            line-height: 1.25;
         }
 
-        .display-4 {
-            font-size: clamp(44px, 6.5vw, 76px);
-        }
-
-        .display-5 {
-            font-size: clamp(36px, 5vw, 66px);
-        }
-
-        .display-6 {
-            font-size: clamp(42px, 6vw, 84px);
+        .h4 {
+            font-size: 1.2rem;
+            line-height: 1.3;
         }
 
         .lead {
+            font-size: 1rem;
             font-weight: 400;
+            line-height: 1.65;
+        }
+
+        @media (min-width: 576px) {
+            h1, .display-3, .display-4 { font-size: 2.35rem; }
+            h2, .display-6 { font-size: 2rem; }
+            h3, .display-5 { font-size: 1.5rem; }
+            .lead { font-size: 1.075rem; }
+        }
+
+        @media (min-width: 768px) {
+            h1, .display-3, .display-4 { font-size: 2.9rem; }
+            h2, .display-6 { font-size: 2.4rem; }
+            h3, .display-5 { font-size: 2rem; }
+            .h3 { font-size: 1.6rem; }
+            .h4 { font-size: 1.4rem; }
+        }
+
+        @media (min-width: 992px) {
+            h1, .display-3 {
+                font-size: clamp(52px, 8.5vw, 96px);
+                line-height: 1.03;
+                letter-spacing: -.045em;
+            }
+
+            .display-4 {
+                font-size: clamp(44px, 6.5vw, 76px);
+                line-height: 1.02;
+                letter-spacing: -.045em;
+            }
+
+            h2, .display-6 {
+                font-size: clamp(42px, 6vw, 84px);
+                line-height: .96;
+                letter-spacing: -.045em;
+            }
+
+            h3, .display-5 {
+                font-size: clamp(34px, 4.5vw, 66px);
+                line-height: 1;
+                letter-spacing: -.045em;
+            }
+
+            .h3 { font-size: 1.75rem; }
+            .h4 { font-size: 1.5rem; }
+            .lead { font-size: 1.25rem; }
         }
 
         .fw-semibold {
@@ -185,12 +237,30 @@
 
         .navbar-toggler {
             color: var(--color-text);
+            width: 2.75rem;
+            height: 2.75rem;
+            padding: 0;
+            display: inline-grid;
+            place-items: center;
+            border-radius: .75rem;
+            font-size: 1.15rem;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: 0 0 0 3px rgba(242, 178, 51, .35);
         }
 
         .navbar {
             background: rgba(13, 38, 32, .94);
             border-color: var(--line) !important;
             backdrop-filter: blur(12px);
+        }
+
+        @media (max-width: 575.98px) {
+            .navbar .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
         }
 
         .brand {
@@ -200,8 +270,8 @@
         }
 
         .brand img {
-            width: 58px;
-            height: 58px;
+            width: 42px;
+            height: 42px;
             object-fit: contain;
             display: block;
             filter: brightness(0) invert(1);
@@ -215,6 +285,23 @@
         .navbar .nav-link:hover,
         .navbar .nav-link.active {
             color: var(--color-primary) !important;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: .4rem;
+            min-height: 2.75rem;
+            padding: .65rem 1.15rem;
+            line-height: 1.35;
+            text-align: center;
+        }
+
+        .btn-sm {
+            min-height: 2.5rem;
+            padding: .45rem .9rem;
+            font-size: .875rem;
         }
 
         .btn-main {
@@ -248,9 +335,27 @@
 
         .hero {
             background: var(--color-bg);
-            padding: 8.25rem 0 5.25rem;
+            padding: 5rem 0 2.5rem;
             position: relative;
             overflow: hidden;
+        }
+
+        @media (min-width: 576px) {
+            .hero {
+                padding: 5.75rem 0 2.75rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .hero {
+                padding: 6.75rem 0 3.5rem;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .hero {
+                padding: 8.25rem 0 5.25rem;
+            }
         }
 
         .hero::after {
@@ -377,7 +482,25 @@
         }
 
         .section {
-            padding: 5.25rem 0;
+            padding: 2rem 0;
+        }
+
+        @media (min-width: 576px) {
+            .section {
+                padding: 2.75rem 0;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .section {
+                padding: 3.5rem 0;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .section {
+                padding: 5.25rem 0;
+            }
         }
 
         .cta-band {
@@ -446,20 +569,51 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            color: var(--color-text-secondary);
+            font-size: .8rem;
+            line-height: 1.4;
+        }
+
+        /* Deretan statistik singkat di dalam hero. */
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .hero-stats > div {
+            min-width: 0;
+        }
+
+        .hero-stats .stat-value {
+            font-size: 1.35rem;
+        }
+
+        .hero-stats .small {
+            display: block;
+            font-size: .72rem;
+            line-height: 1.3;
+        }
+
+        /* Baris filter yang bisa digeser horizontal di layar kecil. */
+        .filter-scroll {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .5rem;
         }
 
         .whatsapp {
             position: fixed;
-            right: 1.25rem;
-            bottom: 1.25rem;
+            right: 1rem;
+            bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
             background: #25d366;
             color: #fff;
-            width: 3.5rem;
-            height: 3.5rem;
+            width: 3.25rem;
+            height: 3.25rem;
             border-radius: 50%;
             display: grid;
             place-items: center;
-            font-size: 1.55rem;
+            font-size: 1.45rem;
             z-index: 1040;
             box-shadow: 0 12px 25px rgba(37, 211, 102, .35);
         }
@@ -472,7 +626,7 @@
         .footer {
             background: var(--color-bg-secondary);
             color: var(--color-text);
-            padding: 3.5rem 0 2rem;
+            padding: 2.5rem 0 1.5rem;
         }
 
         .footer a {
@@ -484,18 +638,22 @@
             color: var(--color-primary);
         }
 
+        .footer .d-flex.flex-column a {
+            padding-block: .2rem;
+        }
+
         .footer-logo {
-            width: 120px;
-            height: 120px;
+            width: 88px;
+            height: 88px;
             object-fit: contain;
             display: block;
-            margin-bottom: .75rem;
+            margin-bottom: .5rem;
             filter: brightness(0) invert(1);
         }
 
         .footer-social a {
-            width: 2.4rem;
-            height: 2.4rem;
+            width: 2.75rem;
+            height: 2.75rem;
             border: 1px solid var(--line-2);
             border-radius: 50%;
             display: inline-grid;
@@ -504,11 +662,50 @@
 
         .footer-bottom {
             border-top: 1px solid var(--line);
+            padding-bottom: 4rem;
         }
 
         html {
             scroll-behavior: smooth;
-            scroll-padding-top: 6.5rem;
+            scroll-padding-top: 5.25rem;
+        }
+
+        @media (min-width: 768px) {
+            .whatsapp {
+                right: 1.25rem;
+                bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+                width: 3.5rem;
+                height: 3.5rem;
+                font-size: 1.55rem;
+            }
+
+            .footer {
+                padding: 3.5rem 0 2rem;
+            }
+
+            .footer-logo {
+                width: 120px;
+                height: 120px;
+                margin-bottom: .75rem;
+            }
+
+            .footer-bottom {
+                padding-bottom: 0;
+            }
+
+            html {
+                scroll-padding-top: 6.5rem;
+            }
+        }
+
+        @media (max-width: 991.98px) {
+            body.has-builder-bar .whatsapp {
+                display: none;
+            }
+
+            body.has-builder-bar {
+                padding-bottom: calc(5.75rem + env(safe-area-inset-bottom, 0px));
+            }
         }
 
         @media (prefers-reduced-motion: no-preference) {
@@ -580,53 +777,131 @@
 
         @media (max-width: 991.98px) {
             .navbar-collapse {
+                margin-top: .5rem;
+                padding: .5rem;
                 background: var(--color-bg-secondary);
                 border: 1px solid var(--line);
                 border-radius: 1rem;
-                margin-top: .75rem;
-                padding: 1rem;
+                max-height: calc(100dvh - 5.5rem);
+                overflow-y: auto;
+                box-shadow: 0 22px 45px rgba(0, 0, 0, .35);
+            }
+
+            .navbar-nav {
+                align-items: stretch;
+                gap: .15rem;
+            }
+
+            .navbar .nav-link {
+                display: flex;
+                align-items: center;
+                min-height: 2.75rem;
+                padding: .5rem .75rem;
+                border-radius: .7rem;
+                font-weight: 500;
+            }
+
+            .navbar .nav-link.active {
+                background: rgba(242, 178, 51, .12);
+            }
+
+            .navbar-nav .nav-item.ms-lg-2 {
+                margin-top: .5rem;
+                margin-left: 0 !important;
+            }
+
+            .navbar-nav .btn-main {
+                width: 100%;
             }
         }
 
-        @media (max-width: 639.98px) {
-            .container > .row {
-                margin-left: 0;
-                margin-right: 0;
+        @media (min-width: 768px) {
+            .brand img {
+                width: 52px;
+                height: 52px;
             }
+        }
 
-            h1, .display-3 {
-                font-size: clamp(42px, 12vw, 54px);
-                line-height: 1.02;
+        @media (min-width: 992px) {
+            .brand img {
+                width: 58px;
+                height: 58px;
             }
+        }
 
-            h2, .display-6,
-            h3, .display-5 {
-                font-size: clamp(32px, 9vw, 42px);
-                line-height: 1;
-            }
-
-            .hero {
-                padding: 7.5rem 0 3rem;
-            }
-
-            .section {
-                padding: 3rem 0;
-            }
-
+        @media (max-width: 575.98px) {
             .card-clean {
-                border-radius: 18px;
+                border-radius: 16px;
+            }
+
+            .card-clean.p-4 {
+                padding: 1.125rem !important;
+            }
+
+            .card-clean.p-5 {
+                padding: 1.5rem 1.125rem !important;
+            }
+
+            .cta-band {
+                border-radius: 16px;
+            }
+
+            .cta-band.p-4,
+            .cta-band.p-5 {
+                padding: 1.5rem 1.25rem !important;
+            }
+
+            .hero .d-flex > .btn,
+            .hero .hero-actions .btn,
+            .cta-band .btn,
+            .booking-actions .btn {
+                width: 100%;
             }
 
             .hero .btn,
             .cta-band .btn {
-                min-height: 44px;
+                min-height: 2.875rem;
+            }
+
+            .filter-scroll {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding-bottom: .25rem;
+                scrollbar-width: none;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .filter-scroll::-webkit-scrollbar {
+                display: none;
+            }
+
+            .filter-scroll > * {
+                flex: 0 0 auto;
+            }
+
+            .form-control,
+            .form-select {
+                min-height: 3rem;
+                font-size: 1rem;
+            }
+
+            .hero-stats {
+                gap: .75rem;
+            }
+
+            .hero-stats .stat-value {
+                font-size: 1.2rem;
+            }
+
+            .media-frame {
+                aspect-ratio: 16 / 11;
             }
         }
     </style>
     @stack('styles')
 </head>
-<body>
-        <nav class="navbar navbar-expand-lg py-3 fixed-top border-bottom">
+<body class="public-site {{ $bottomBar ? 'has-builder-bar' : '' }}">
+<nav class="navbar navbar-expand-lg py-2 py-lg-3 fixed-top border-bottom">
     <div class="container">
         <a class="brand" href="{{ route('home') }}" aria-label="{{ $siteName }}">
             <img src="{{ asset('assets/img/logo/logo.png') }}" alt="{{ $siteName }}">
@@ -669,7 +944,7 @@
                     @endforeach
                 </div>
             </div>
-            <div class="col-6 col-lg-3">
+            <div class="col-12 col-sm-6 col-lg-3">
                 <div class="text-white fw-semibold mb-3">Jelajahi</div>
                 <div class="d-flex flex-column gap-2">
                     <a href="{{ route('home') }}#katalog">Perlengkapan</a>
@@ -680,12 +955,14 @@
                     <a href="{{ route('testimonials') }}">Testimoni</a>
                 </div>
             </div>
-            <div class="col-6 col-lg-4">
+            <div class="col-12 col-sm-6 col-lg-4">
                 <div class="text-white fw-semibold mb-3">Hubungi Kami</div>
                 <div class="d-flex flex-column gap-2">
                     <span><i class="fa-solid fa-location-dot me-2"></i>{{ $settings['address'] ?? 'Alamat kantor belum diatur.' }}</span>
-                    <a href="mailto:{{ $settings['email'] ?? 'halo@linijayaevent.id' }}"><i class="fa-solid fa-envelope me-2"></i>{{ $settings['email'] ?? 'halo@linijayaevent.id' }}</a>
-                    <span><i class="fa-regular fa-clock me-2"></i>{{ $settings['operating_hours'] ?? 'Senin–Sabtu, 08.00–17.00' }}</span>
+                    <a href="mailto:{{ $settings['email'] ?? 'halo@linyeo.id' }}"><i class="fa-solid fa-envelope me-2"></i>{{ $settings['email'] ?? 'halo@linyeo.id' }}</a>
+                    <span><i class="fa-regular fa-clock me-2"></i>{{ $settings['operating_hours'] ?? 'Senin–Sabtu, 08.00–17.00' }} {{ $settings['timezone'] ?? 'WITA' }}</span>
+                    <span class="small">{{ $settings['response_time'] ?? 'Dibalas maksimal 1×24 jam.' }}</span>
+                    <span class="small">{{ $settings['after_hours_message'] ?? 'Pesan di luar jam kerja dibalas pada jam operasional berikutnya.' }}</span>
                     <a href="{{ $waUrl }}" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp me-2"></i>Konsultasi via WhatsApp</a>
                 </div>
             </div>
@@ -725,6 +1002,29 @@
 
         window.addEventListener('hashchange', updateActiveMenu);
         updateActiveMenu();
+    })();
+</script>
+<script>
+    (function () {
+        const nav = document.getElementById('siteNav');
+
+        if (!nav) {
+            return;
+        }
+
+        function closeMobileMenu() {
+            if (window.innerWidth >= 992 || !nav.classList.contains('show')) {
+                return;
+            }
+
+            if (window.bootstrap && bootstrap.Collapse) {
+                bootstrap.Collapse.getOrCreateInstance(nav, { toggle: false }).hide();
+            }
+        }
+
+        nav.querySelectorAll('a').forEach(function (link) {
+            link.addEventListener('click', closeMobileMenu);
+        });
     })();
 </script>
 <script>

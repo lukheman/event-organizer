@@ -1,5 +1,5 @@
 @php
-    $siteName = $settings['site_name'] ?? 'Lini Jaya Event';
+    $siteName = $settings['site_name'] ?? 'LinyEO';
     $waUrl = \App\Support\SiteContent::whatsappUrl($settings, 'Halo, saya ingin berkonsultasi mengenai rencana acara dengan tim '.$siteName.'.');
     $partnerCount = $collaborations->pluck('partner_name')->filter()->unique()->count();
     $photoCount = $collaborations->sum(fn ($collaboration) => $collaboration->photos->filter(fn ($photo) => $photo->photoUrl())->count());
@@ -19,7 +19,7 @@
             </p>
 
             @if ($collaborations->isNotEmpty())
-                <div class="d-flex flex-wrap gap-4 mt-4">
+                <div class="hero-stats mt-4">
                     <div>
                         <div class="stat-value">{{ $collaborations->count() }}</div>
                         <div class="small text-secondary">Kegiatan terdokumentasi</div>

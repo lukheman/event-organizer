@@ -1,7 +1,7 @@
 @php
     $heroEyebrow = $settings['hero_eyebrow'] ?? 'Event organizer profesional';
     $heroTitle = $settings['hero_title'] ?? 'Wujudkan acara yang terencana, berkesan, dan berjalan tanpa hambatan.';
-    $heroSubtitle = $settings['hero_subtitle'] ?? 'Lini Jaya Event membantu Anda merancang konsep, mengelola produksi, dan menyediakan perlengkapan untuk setiap kebutuhan acara.';
+    $heroSubtitle = $settings['hero_subtitle'] ?? 'LinyEO membantu Anda merancang konsep, mengelola produksi, dan menyediakan perlengkapan untuk setiap kebutuhan acara.';
     $waUrl = \App\Support\SiteContent::whatsappUrl($settings);
     $categoryLabels = config('rental.categories');
 
@@ -17,7 +17,7 @@
 @endphp
 
 <x-layouts.public
-    :title="($settings['site_name'] ?? 'Lini Jaya Event').' — Event Organizer Profesional'"
+    :title="($settings['site_name'] ?? 'LinyEO').' — Event Organizer Profesional'"
     description="Event organizer profesional untuk perencanaan, produksi, pelaksanaan acara, dan penyediaan perlengkapan event."
     :settings="$settings"
 >
@@ -64,7 +64,7 @@
                          {{ $settings['hero_note'] ?? 'Dari konsep hingga eksekusi, satu tim untuk acara Anda.' }}
                     </p>
 
-                    <div class="d-flex flex-wrap gap-4">
+                    <div class="hero-stats d-none d-lg-grid">
                          <div>
                              <div class="stat-value">{{ $stats['services'] }}</div>
                              <div class="small text-secondary">Layanan event</div>
@@ -89,31 +89,31 @@
         </div>
     </section>
 
-    <section class="public-stats" aria-label="Statistik Lini Jaya Event">
+    <section class="public-stats" aria-label="Statistik LinyEO">
         <div class="container">
             <div class="row g-3">
-                <div class="col-6 col-lg-3">
+                <div class="col-6 col-md-3">
                     <div class="public-stat">
                         <span class="public-stat-icon"><i class="fa-solid fa-calendar-check"></i></span>
                         <strong>{{ $stats['services'] }}</strong>
                         <span>Layanan event</span>
                     </div>
                 </div>
-                <div class="col-6 col-lg-3">
+                <div class="col-6 col-md-3">
                     <div class="public-stat">
                         <span class="public-stat-icon"><i class="fa-solid fa-handshake"></i></span>
                         <strong>{{ $stats['collaborations'] }}</strong>
                         <span>Acara ditangani</span>
                     </div>
                 </div>
-                <div class="col-6 col-lg-3">
+                <div class="col-6 col-md-3">
                     <div class="public-stat">
                         <span class="public-stat-icon"><i class="fa-solid fa-users"></i></span>
                         <strong>{{ $stats['partners'] }}</strong>
                         <span>Mitra kerja sama</span>
                     </div>
                 </div>
-                <div class="col-6 col-lg-3">
+                <div class="col-6 col-md-3">
                     <div class="public-stat">
                         <span class="public-stat-icon"><i class="fa-solid fa-box-open"></i></span>
                         <strong>{{ $stats['available_items'] }}</strong>
@@ -172,14 +172,14 @@
                     <span class="visually-hidden">Pilih alat, cek jadwal, kami antar.</span>
                     <p class="text-secondary mb-0">Gunakan katalog perlengkapan kami sebagai bagian dari layanan event organizer atau sewa item sesuai kebutuhan Anda.</p>
                 </div>
-                <div class="search-box position-relative" style="min-width: 280px; max-width: 360px;">
+                <div class="search-box catalog-search position-relative">
                     <i class="fa-solid fa-magnifying-glass position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary"></i>
                     <input id="catalog-search" type="text" class="form-control rounded-pill ps-5 py-2" placeholder="Cari alat (mis. tenda, sound)..." aria-label="Cari alat">
                 </div>
             </div>
 
             @if ($rentalItems->isNotEmpty())
-                <div class="d-flex flex-wrap gap-2 mb-4" role="group" aria-label="Filter kategori alat">
+                <div class="filter-scroll mb-4" role="group" aria-label="Filter kategori alat">
                     <button type="button" class="filter-chip active" data-filter="all">
                         Semua <span class="badge rounded-pill bg-light text-dark ms-1">{{ $rentalItems->count() }}</span>
                     </button>
@@ -507,6 +507,26 @@
                 line-height: 1.25;
             }
 
+            .catalog-search {
+                width: 100%;
+                max-width: 360px;
+            }
+
+            @media (max-width: 767.98px) {
+                .catalog-search {
+                    max-width: none;
+                }
+
+                .section-head + .text-link,
+                .section-head + .search-box {
+                    align-self: stretch;
+                }
+
+                .section-head + .text-link {
+                    white-space: normal !important;
+                }
+            }
+
             @media (max-width: 639.98px) {
                 .public-stats {
                     margin-top: -1.25rem;
@@ -526,6 +546,10 @@
 
                 .public-stat strong {
                     font-size: 1.25rem;
+                }
+
+                .public-stat > span:last-child {
+                    font-size: .72rem;
                 }
             }
 
@@ -654,28 +678,43 @@
                 font-size: 1.4rem;
             }
 
+            @media (min-width: 640px) and (max-width: 991.98px) {
+                .hero-with-slider {
+                    min-height: 32rem;
+                    padding: 7.5rem 0 4.5rem;
+                }
+            }
+
             @media (max-width: 639.98px) {
                 .hero-with-slider {
-                    min-height: 33rem;
-                    padding: 7.5rem 0 3.5rem;
+                    min-height: 0;
+                    padding: 5.5rem 0 2.75rem;
+                }
+
+                .hero-with-slider .hero-copy {
+                    text-shadow: 0 2px 14px rgba(0, 0, 0, .45);
                 }
 
                 .hero-with-slider .hero-slider::before {
-                    background: linear-gradient(180deg, rgba(8, 24, 15, .92) 0%, rgba(8, 24, 15, .78) 55%, rgba(8, 24, 15, .92) 100%);
+                    background: linear-gradient(180deg, rgba(8, 24, 15, .96) 0%, rgba(8, 24, 15, .9) 55%, rgba(8, 24, 15, .97) 100%);
                 }
 
                 .hero .display-3 {
-                    font-size: clamp(25px, 7.5vw, 32px);
+                    font-size: clamp(26px, 7.5vw, 32px);
                     line-height: 1.12;
                 }
 
                 .section .display-6 {
-                    font-size: clamp(21px, 5.8vw, 27px);
+                    font-size: clamp(22px, 5.8vw, 27px);
                     line-height: 1.18;
                 }
 
                 .hero .lead {
                     font-size: .9375rem;
+                }
+
+                .hero .small {
+                    font-size: .82rem;
                 }
 
                 .stat-value {

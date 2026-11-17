@@ -13,11 +13,11 @@ class Service extends Model
     /** @use HasFactory<ServiceFactory> */
     use HasFactory;
 
-    protected $fillable = ['category', 'name', 'slug', 'description', 'photo', 'features', 'sort_order', 'is_active'];
+    protected $fillable = ['category', 'name', 'slug', 'description', 'photo', 'features', 'price_per_day', 'sort_order', 'is_active'];
 
     protected function casts(): array
     {
-        return ['features' => 'array', 'is_active' => 'boolean'];
+        return ['features' => 'array', 'price_per_day' => 'integer', 'is_active' => 'boolean'];
     }
 
     public function rentalItems(): HasMany

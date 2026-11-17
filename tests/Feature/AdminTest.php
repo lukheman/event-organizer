@@ -16,7 +16,7 @@ test('the landing page renders with its styles', function () {
 test('guests can view the login page and registration is disabled', function () {
     $this->get('/login')
         ->assertOk()
-        ->assertSee('Masuk ke Lini Jaya Event')
+        ->assertSee('Masuk ke LinyEO')
         ->assertSee('Panel Admin')
         ->assertSee('function togglePassword', false);
 

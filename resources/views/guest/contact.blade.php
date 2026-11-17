@@ -1,5 +1,5 @@
 @php
-    $siteName = $settings['site_name'] ?? 'Lini Jaya Event';
+    $siteName = $settings['site_name'] ?? 'LinyEO';
     $waUrl = \App\Support\SiteContent::whatsappUrl($settings, 'Halo, saya ingin berkonsultasi mengenai rencana acara dengan tim '.$siteName.'.');
     $mapAddress = $settings['address'] ?? 'Makassar';
     $mapUrl = $settings['map_embed'] ?? 'https://www.google.com/maps?q='.urlencode($mapAddress).'&output=embed';
@@ -45,7 +45,7 @@
                                 <div class="icon-box flex-shrink-0"><i class="fa-solid fa-envelope"></i></div>
                                 <div>
                                     <div class="fw-semibold mb-1">Email</div>
-                                    <a class="text-secondary small text-decoration-none" href="mailto:{{ $settings['email'] ?? 'halo@linijayaevent.id' }}">{{ $settings['email'] ?? 'halo@linijayaevent.id' }}</a>
+                                    <a class="text-secondary small text-decoration-none" href="mailto:{{ $settings['email'] ?? 'halo@linyeo.id' }}">{{ $settings['email'] ?? 'halo@linyeo.id' }}</a>
                                 </div>
                             </div>
 
@@ -60,9 +60,9 @@
                             <div class="d-flex gap-3">
                                 <div class="icon-box flex-shrink-0"><i class="fa-regular fa-clock"></i></div>
                                 <div>
-                                    <div class="fw-semibold mb-1">Jam operasional</div>
-                                    <p class="text-secondary small mb-0">{{ $settings['operating_hours'] ?? 'Senin–Sabtu, 08.00–17.00' }}</p>
-                                </div>
+                                    <p class="text-secondary small mb-0">{{ $settings['operating_hours'] ?? 'Senin–Sabtu, 08.00–17.00' }} {{ $settings['timezone'] ?? 'WITA' }}</p>
+                                    <p class="text-secondary small mb-0">{{ $settings['response_time'] ?? 'Dibalas maksimal 1×24 jam.' }}</p>
+                                    <p class="text-secondary small mb-0">{{ $settings['after_hours_message'] ?? 'Pesan di luar jam kerja akan kami balas pada jam operasional berikutnya.' }}</p>
                             </div>
                         </div>
 
@@ -85,7 +85,7 @@
                 <div class="col-lg-7">
                     <div class="card-clean p-3 p-md-4 h-100 d-flex flex-column">
                         <span class="eyebrow mb-3">Lokasi kantor</span>
-                        <div class="ratio ratio-16x9 rounded-3 overflow-hidden flex-grow-1">
+                        <div class="ratio contact-map rounded-3 overflow-hidden flex-grow-1">
                             <iframe src="{{ $mapUrl }}" title="Peta lokasi {{ $siteName }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                         <p class="text-secondary small mt-3 mb-0">Peta mengikuti alamat kantor. Hubungi kami sebelum datang untuk memastikan titik lokasi dan jadwal layanan.</p>
@@ -94,6 +94,26 @@
             </div>
         </div>
     </section>
+
+            @if (session('success'))
+                <div class="alert alert-success mb-4">{{ session('success') }}</div>
+            @endif
+
+            <div class="card-clean p-4 p-md-5 mb-4">
+                <span class="eyebrow">Formulir kontak</span>
+                <h2 class="h3 mt-2">Kirim kebutuhan acara tanpa WhatsApp</h2>
+                <p class="text-secondary">Isi email atau WhatsApp agar tim dapat membalas.</p>
+                <form method="POST" action="{{ route('contact.store') }}" class="row g-3">
+                    @csrf
+                    <div class="col-md-6"><label class="form-label" for="contact-name">Nama</label><input id="contact-name" name="name" class="form-control" required value="{{ old('name') }}"></div>
+                    <div class="col-md-6"><label class="form-label" for="contact-event-type">Jenis acara</label><input id="contact-event-type" name="event_type" class="form-control" required value="{{ old('event_type') }}"></div>
+                    <div class="col-md-6"><label class="form-label" for="contact-email">Email</label><input id="contact-email" type="email" name="email" class="form-control" value="{{ old('email') }}"></div>
+                    <div class="col-md-6"><label class="form-label" for="contact-whatsapp">WhatsApp</label><input id="contact-whatsapp" name="whatsapp" class="form-control" value="{{ old('whatsapp') }}"></div>
+                    <div class="col-md-6"><label class="form-label" for="contact-event-date">Tanggal acara</label><input id="contact-event-date" type="date" name="event_date" class="form-control" value="{{ old('event_date') }}"></div>
+                    <div class="col-12"><label class="form-label" for="contact-message">Pesan</label><textarea id="contact-message" name="message" rows="5" class="form-control" required>{{ old('message') }}</textarea></div>
+                    <div class="col-12"><button class="btn btn-main" type="submit">Kirim pesan</button></div>
+                </form>
+            </div>
 
     <section class="section section-soft">
         <div class="container">
@@ -149,6 +169,24 @@
                 font-size: 1.75rem;
                 line-height: 1;
                 letter-spacing: -.03em;
+            }
+
+            .contact-map {
+                --bs-aspect-ratio: 75%;
+                min-height: 260px;
+            }
+
+            @media (min-width: 768px) {
+                .contact-map {
+                    --bs-aspect-ratio: 62%;
+                }
+            }
+
+            @media (min-width: 992px) {
+                .contact-map {
+                    --bs-aspect-ratio: 56.25%;
+                    min-height: 0;
+                }
             }
         </style>
     @endpush

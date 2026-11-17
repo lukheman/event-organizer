@@ -1,6 +1,6 @@
 @props([
-    'title' => 'Lini Jaya Event — Panel Admin',
-    'description' => 'Panel pengelolaan katalog sewa dan konten website Lini Jaya Event.',
+    'title' => 'LinyEO — Panel Admin',
+    'description' => 'Panel pengelolaan katalog sewa dan konten website LinyEO.',
     'type' => 'guest',
 ])
 
@@ -767,7 +767,7 @@
         <div class="site-navbar-container">
             <a href="{{ route('home') }}" class="site-brand">
                 <i class="fa-solid fa-sparkles"></i>
-                <span>Lini Jaya Event</span>
+                <span>LinyEO</span>
             </a>
 
             <ul class="site-nav">
@@ -808,7 +808,7 @@
                     <div class="footer-brand">
                         <a href="{{ route('home') }}" class="site-brand">
                             <i class="fa-solid fa-sparkles"></i>
-                            <span>Lini Jaya Event</span>
+                            <span>LinyEO</span>
                         </a>
                         <p>Penyewaan perlengkapan acara dengan antar, pasang, dan penarikan.</p>
                     </div>
@@ -840,7 +840,7 @@
                 </div>
 
                 <div class="footer-bottom">
-                    <p>&copy; {{ date('Y') }} Lini Jaya Event. Seluruh hak cipta dilindungi.</p>
+                    <p>&copy; {{ date('Y') }} LinyEO. Seluruh hak cipta dilindungi.</p>
                 </div>
             </div>
         </footer>

@@ -3,14 +3,20 @@
 namespace App\Http\Controllers\Guest;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreContactInquiryRequest;
+use App\Http\Requests\StoreTestimonialRequest;
+use App\Mail\ContactInquiryReceived;
 use App\Models\Collaboration;
+use App\Models\ContactInquiry;
 use App\Models\RentalItem;
 use App\Models\Service;
 use App\Models\SocialLink;
 use App\Models\TeamMember;
 use App\Models\Testimonial;
 use App\Support\SiteContent;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
 class PublicPageController extends Controller
@@ -113,9 +119,24 @@ class PublicPageController extends Controller
         return view('guest.testimonials', ['testimonials' => Testimonial::query()->where('is_active', true)->latest()->get(), 'settings' => SiteContent::settings()]);
     }
 
+    public function storeTestimonial(StoreTestimonialRequest $request): RedirectResponse
+    {
+        Testimonial::query()->create([...$request->validated(), 'is_active' => false]);
+
+        return to_route('testimonials')->with('success', 'Terima kasih. Testimoni Anda sedang ditinjau.');
+    }
+
     public function contact(): View
     {
         return view('guest.contact', ['socialLinks' => SocialLink::query()->where('is_active', true)->orderBy('sort_order')->get(), 'settings' => SiteContent::settings()]);
+    }
+
+    public function storeContactInquiry(StoreContactInquiryRequest $request): RedirectResponse
+    {
+        $inquiry = ContactInquiry::query()->create($request->validated());
+        Mail::to(config('mail.contact_recipient') ?: config('mail.from.address'))->send(new ContactInquiryReceived($inquiry));
+
+        return to_route('contact')->with('success', 'Pesan berhasil dikirim. Tim kami akan membalas maksimal 1×24 jam.');
     }
 
     public function sitemap(): Response

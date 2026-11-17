@@ -1,6 +1,6 @@
 @php
     $categoryLabels = config('rental.categories');
-    $siteName = $settings['site_name'] ?? 'Lini Jaya Event';
+    $siteName = $settings['site_name'] ?? 'LinyEO';
     $waNumber = preg_replace('/\D+/', '', $settings['whatsapp_number'] ?? '6281234567890');
     $waBase = 'https://wa.me/'.$waNumber;
 @endphp
@@ -9,6 +9,7 @@
     :title="'Rancang Kebutuhan — '.$siteName"
     description="Pilih alat yang ingin disewa, tentukan jumlah crew, lalu kirim rencana kebutuhan acara Anda langsung ke WhatsApp."
     :settings="$settings"
+    :bottom-bar="true"
 >
     <section class="hero builder-hero">
         <div class="container">
@@ -60,7 +61,7 @@
                             </div>
 
                             @if ($rentalItems->isNotEmpty())
-                                <div class="d-flex flex-wrap gap-2 mb-4" role="group" aria-label="Filter kategori alat">
+                                <div class="filter-scroll mb-4" role="group" aria-label="Filter kategori alat">
                                     <button type="button" class="filter-chip active" data-category-filter="all">Semua</button>
                                     @foreach ($rentalCategories as $category)
                                         <button type="button" class="filter-chip" data-category-filter="{{ $category }}">
@@ -147,7 +148,6 @@
                                             @endforeach
                                         </div>
                                     @endif
-                                </div>
                                 <div class="col-md-5">
                                     <div class="crew-stepper">
                                         <button type="button" data-crew-step="-1" aria-label="Kurangi jumlah crew">−</button>
@@ -157,7 +157,7 @@
                                         </div>
                                         <button type="button" data-crew-step="1" aria-label="Tambah jumlah crew">+</button>
                                     </div>
-                                    <p class="small text-secondary text-center mt-2 mb-0">Jumlah crew bisa disesuaikan saat konsultasi.</p>
+                                    <p class="small text-secondary text-center mt-2 mb-0">Tarif: {{ $crewService?->price_per_day ? 'Rp '.number_format($crewService->price_per_day, 0, ',', '.').' / orang / hari' : 'Dikonfirmasi tim' }}</p>
                                 </div>
                             </div>
                         </div>
@@ -168,11 +168,15 @@
                             <p class="text-secondary small mb-4">Informasi ini membantu kami mengecek jadwal, stok, dan kebutuhan teknis.</p>
 
                             <div class="row g-3">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
+                                    <label class="form-label" for="event-days">Jumlah hari</label>
+                                    <input id="event-days" type="number" min="1" max="365" value="1" class="form-control">
+                                </div>
+                                <div class="col-md-4">
                                     <label class="form-label" for="event-date">Tanggal acara</label>
                                     <input id="event-date" type="date" class="form-control">
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label class="form-label" for="event-location">Lokasi acara</label>
                                     <input id="event-location" type="text" class="form-control" placeholder="Kota atau nama venue">
                                 </div>
@@ -219,6 +223,16 @@
                     </div>
                 </div>
             </form>
+
+            <div class="builder-actionbar">
+                <div class="builder-actionbar-info">
+                    <span class="builder-actionbar-label">Estimasi</span>
+                    <strong id="actionbar-total">Rp 0 / hari</strong>
+                </div>
+                <button type="submit" form="custom-builder" class="btn btn-main" id="actionbar-submit" disabled>
+                    <i class="fa-brands fa-whatsapp"></i> Kirim Rencana
+                </button>
+            </div>
         </div>
     </section>
 
@@ -474,6 +488,8 @@
                 const submitButton = document.getElementById('summary-submit');
                 const summaryHint = document.getElementById('summary-hint');
                 const crewInput = document.getElementById('crew-count');
+                const daysInput = document.getElementById('event-days');
+                const crewPrice = {{ $crewService?->price_per_day ?? 0 }};
                 const rupiah = new Intl.NumberFormat('id-ID');
 
                 let activeCategory = 'all';
@@ -506,8 +522,10 @@
                 const updateSummary = () => {
                     const selected = selectedItems();
                     const crew = Math.max(0, Number(crewInput.value) || 0);
-                    const total = selected.reduce((sum, item) => sum + item.price * item.qty, 0);
-
+                    const days = Math.max(1, Number(daysInput.value) || 1);
+                    const equipmentTotal = selected.reduce((sum, item) => sum + item.price * item.qty * days, 0);
+                    const crewTotal = crewPrice * crew * days;
+                    const total = equipmentTotal + crewTotal;
                     summaryItems.innerHTML = '';
                     selected.forEach((item) => {
                         const row = document.createElement('li');
@@ -518,12 +536,12 @@
                         name.className = 'summary-item-name';
                         name.textContent = item.name;
                         qty.className = 'summary-item-qty';
-                        qty.textContent = item.qty + ' unit · ' + item.unit;
+                        qty.textContent = item.qty + ' unit · ' + days + ' hari · ' + item.unit;
                         label.append(name, qty);
 
                         const price = document.createElement('span');
                         price.className = 'summary-item-price';
-                        price.textContent = item.price > 0 ? formatRupiah(item.price * item.qty) : 'Cek harga';
+                        price.textContent = item.price > 0 ? formatRupiah(item.price * item.qty * days) : 'Cek harga';
 
                         row.append(label, price);
                         summaryItems.appendChild(row);
@@ -532,7 +550,7 @@
                     summaryEmpty.classList.toggle('d-none', selected.length > 0);
                     summaryTotal.textContent = selected.length > 0 && total === 0
                         ? 'Cek harga'
-                        : formatRupiah(total) + ' / hari';
+                        : formatRupiah(total) + ' / estimasi';
                     summaryCrew.textContent = crew > 0 ? crew + ' orang' : 'Belum dipilih';
 
                     const hasSelection = selected.length > 0 || crew > 0;
@@ -591,6 +609,7 @@
                         });
                     });
                 });
+                daysInput.addEventListener('input', updateSummary);
 
                 form.querySelectorAll('[data-crew-step]').forEach((button) => {
                     button.addEventListener('click', () => {
@@ -643,10 +662,14 @@
                         return;
                     }
 
-                    const total = selected.reduce((sum, item) => sum + item.price * item.qty, 0);
+                    const days = Math.max(1, Number(daysInput.value) || 1);
+                    const equipmentTotal = selected.reduce((sum, item) => sum + item.price * item.qty * days, 0);
+                    const crewTotal = crewPrice * crew * days;
+                    const total = equipmentTotal + crewTotal;
                     const lines = [
                         'Halo ' + form.dataset.siteName + ', saya ingin merancang kebutuhan acara.',
                         '',
+                        '*Jumlah hari:* ' + days + ' hari',
                     ];
 
                     if (selected.length > 0) {
@@ -655,14 +678,17 @@
                             lines.push((index + 1) + '. ' + item.name + ' — ' + item.qty + ' unit — ' + item.unit);
                         });
 
-                        if (total > 0) {
+                        if (equipmentTotal > 0) {
                             lines.push('');
-                            lines.push('*Estimasi sewa alat:* ' + formatRupiah(total) + ' / hari');
+                            lines.push('*Estimasi sewa alat:* ' + formatRupiah(equipmentTotal));
                         }
                     }
 
                     if (crew > 0) {
                         lines.push('*Crew yang dibutuhkan:* ' + crew + ' orang');
+                        if (crewTotal > 0) {
+                            lines.push('*Estimasi crew:* ' + formatRupiah(crewTotal));
+                        }
                     }
 
                     if (date) {

@@ -19,7 +19,10 @@
             'whatsapp_number' => ['label' => 'Nomor WhatsApp', 'type' => 'text', 'hint' => 'Gunakan format internasional, contoh 6281234567890.'],
             'whatsapp_template' => ['label' => 'Template Pesan WhatsApp', 'type' => 'textarea'],
             'operating_hours' => ['label' => 'Jam Operasional', 'type' => 'text'],
-            'map_embed' => ['label' => 'Google Maps Embed URL', 'type' => 'text', 'hint' => 'Tempel URL dari menu "Embed a map" Google Maps.'],
+            'timezone' => ['label' => 'Zona Waktu', 'type' => 'text', 'hint' => 'Contoh: WITA'],
+            'response_time' => ['label' => 'Estimasi Waktu Balasan', 'type' => 'text', 'hint' => 'Contoh: Dibalas maksimal 1×24 jam'],
+            'after_hours_message' => ['label' => 'Pesan di Luar Jam Kerja', 'type' => 'text'],
+            'map_embed' => ['label' => 'Google Maps Embed URL', 'type' => 'text', 'hint' => 'Tempel URL dari menu "Embed a map" Google Maps.']
         ],
     ];
 @endphp

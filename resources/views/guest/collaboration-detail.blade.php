@@ -1,5 +1,5 @@
 @php
-    $siteName = $settings['site_name'] ?? 'Lini Jaya Event';
+    $siteName = $settings['site_name'] ?? 'LinyEO';
     $waUrl = \App\Support\SiteContent::whatsappUrl($settings, 'Halo, saya ingin berkonsultasi mengenai rencana acara dengan tim '.$siteName.'.');
     $photos = $collaboration->photos->filter(fn ($photo) => $photo->photoUrl());
 @endphp

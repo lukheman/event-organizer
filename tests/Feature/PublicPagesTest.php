@@ -1,5 +1,6 @@
 <?php
 
+use App\Mail\ContactInquiryReceived;
 use App\Models\Collaboration;
 use App\Models\CollaborationPhoto;
 use App\Models\RentalItem;
@@ -9,13 +10,19 @@ use App\Models\SocialLink;
 use App\Models\TeamMember;
 use App\Models\Testimonial;
 use Database\Seeders\RentalCatalogSeeder;
+use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use Illuminate\Support\Facades\Mail;
 
+beforeEach(function () {
+    $this->withoutMiddleware([ValidateCsrfToken::class, VerifyCsrfToken::class]);
+});
 it('shows public event organizer pages', function () {
     $this->get('/')
         ->assertSuccessful()
         ->assertSee('Wujudkan acara yang terencana')
         ->assertSee('hero-with-slider', false)
-        ->assertSee('Statistik Lini Jaya Event', false)
+        ->assertSee('Statistik LinyEO', false)
         ->assertSee('Perlengkapan siap');
     $this->get('/tentang')->assertSuccessful()->assertSee('Tentang kami');
     $this->get('/layanan')->assertSuccessful()->assertSee('Layanan');
@@ -24,6 +31,45 @@ it('shows public event organizer pages', function () {
         ->assertSee('Mari bicarakan acara Anda.')
         ->assertSee('https://www.google.com/maps?q=', false)
         ->assertSee('Peta mengikuti alamat kantor.');
+});
+
+it('accepts moderated public testimonials', function () {
+    $response = $this->post(route('testimonials.store'), [
+        'name' => 'Pengunjung Test',
+        'organization' => 'Komunitas Test',
+        'rating' => 5,
+        'comment' => 'Layanan sangat baik.',
+    ]);
+
+    $response->assertRedirect(route('testimonials'));
+    $this->assertDatabaseHas('testimonials', ['name' => 'Pengunjung Test', 'is_active' => false]);
+});
+
+it('validates contact inquiry and sends email', function () {
+    Mail::fake();
+    config(['mail.contact_recipient' => 'inquiry@example.com']);
+
+    $response = $this->post(route('contact.store'), [
+        'name' => 'Pengunjung Kontak',
+        'email' => 'visitor@example.com',
+        'event_type' => 'Seminar',
+        'event_date' => now()->addDays(5)->toDateString(),
+        'message' => 'Mohon informasi paket seminar.',
+    ]);
+
+    $response->assertRedirect(route('contact'));
+    $this->assertDatabaseHas('contact_inquiries', ['name' => 'Pengunjung Kontak', 'status' => 'new']);
+    Mail::assertSent(ContactInquiryReceived::class);
+});
+
+it('requires email or whatsapp for contact inquiry', function () {
+    $this->from(route('contact'))
+        ->post(route('contact.store'), [
+            'name' => 'Pengunjung Kontak',
+            'event_type' => 'Seminar',
+            'message' => 'Pesan tanpa kanal balasan.',
+        ])
+        ->assertSessionHasErrors(['email', 'whatsapp']);
 });
 
 it('shows the hero background slider from collaboration documentation', function () {

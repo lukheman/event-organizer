@@ -1,5 +1,5 @@
 @php
-    $siteName = $settings['site_name'] ?? 'Lini Jaya Event';
+    $siteName = $settings['site_name'] ?? 'LinyEO';
     $waUrl = \App\Support\SiteContent::whatsappUrl($settings, 'Halo, saya ingin bertanya tentang '.$service->name.' untuk acara saya.');
     $features = $service->features ?? [];
     $documentation = $relatedCollaborations

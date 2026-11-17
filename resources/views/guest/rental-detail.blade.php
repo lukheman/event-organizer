@@ -1,6 +1,6 @@
 @php
     $photo = $item->photoUrl();
-    $siteName = $settings['site_name'] ?? 'Lini Jaya Event';
+    $siteName = $settings['site_name'] ?? 'LinyEO';
     $waBase = \App\Support\SiteContent::whatsappUrl($settings);
 @endphp
 
@@ -23,11 +23,11 @@
                     <span class="eyebrow">{{ $item->categoryLabel() }}</span>
                     <h1 class="display-5 mt-2">{{ $item->name }}</h1>
                     
-                    <div class="d-flex align-items-center gap-2 mb-3">
+                    <div class="availability-line mb-3">
                         <span class="availability availability-{{ $item->availabilityKey() }}">
                             <i class="{{ $item->availabilityIcon() }} me-1"></i>{{ $item->availabilityLabel() }}
                         </span>
-                        <span class="text-secondary small">· Siap untuk kebutuhan acara Anda</span>
+                        <span class="text-secondary small">Siap untuk kebutuhan acara Anda</span>
                     </div>
 
                     <p class="text-secondary mt-3">{{ $item->description }}</p>
@@ -61,7 +61,7 @@
                             </div>
                         </div>
 
-                        <div class="d-flex flex-wrap gap-2 mt-4">
+                        <div class="booking-actions d-flex flex-wrap gap-2 mt-4">
                             <button type="submit" class="btn btn-main flex-grow-1">
                                 <i class="fa-brands fa-whatsapp me-2"></i>Booking via WhatsApp
                             </button>
@@ -101,13 +101,13 @@
 
             <!-- Item Terkait di Kategori yang Sama -->
             @if (isset($relatedItems) && $relatedItems->isNotEmpty())
-                <div class="mt-5 pt-5 border-top">
-                    <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="mt-5 pt-4 pt-sm-5 border-top">
+                    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-2 mb-4">
                         <div>
                             <span class="eyebrow">Item Sejenis</span>
                             <h2 class="h4 mt-1 mb-0">Pilihan Lain di Kategori {{ $item->categoryLabel() }}</h2>
                         </div>
-                        <a href="{{ route('home') }}#katalog" class="text-link">Lihat Semua <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                        <a href="{{ route('home') }}#katalog" class="text-link text-nowrap">Lihat Semua <i class="fa-solid fa-arrow-right ms-1"></i></a>
                     </div>
 
                     <div class="row g-4">
@@ -139,21 +139,29 @@
 
     @push('styles')
         <style>
-            .rental-detail { min-height: 100vh; padding: 8rem 0 5rem; position: relative; background: var(--color-bg); overflow: hidden; }
+            .rental-detail { min-height: 100vh; padding: 5.75rem 0 3rem; position: relative; background: var(--color-bg); overflow: hidden; }
             .rental-detail-content { position: relative; z-index: 1; }
-            .back-link { color: var(--color-text-secondary); text-decoration: none; font-weight: 500; }
+            .back-link { display: inline-flex; align-items: center; min-height: 2.75rem; color: var(--color-text-secondary); text-decoration: none; font-weight: 500; }
             .back-link:hover { color: var(--color-primary); }
             .rental-detail-photo { aspect-ratio: 4 / 3; border-radius: 18px; overflow: hidden; background: var(--mint); display: grid; place-items: center; box-shadow: rgba(0, 0, 0, .4) 0 14px 34px 0; }
             .rental-detail-photo img { width: 100%; height: 100%; object-fit: cover; }
             .rental-detail-photo i { font-size: 5rem; color: var(--color-primary); }
-            .rental-price { color: var(--color-primary); font-size: 1.25rem; font-weight: 600; }
+            .rental-price { color: var(--color-primary); font-size: 1.35rem; font-weight: 600; }
+            .availability-line { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .75rem; }
             .booking-form label { display: block; color: var(--color-text); font-size: .8rem; font-weight: 600; margin-bottom: .4rem; }
-            .booking-form input, .booking-form select { width: 100%; border: 1px solid var(--line); border-radius: 10px; padding: .75rem .85rem; background: var(--color-bg-secondary); color: var(--color-text); font-weight: 500; }
+            .booking-form input, .booking-form select { width: 100%; min-height: 3rem; border: 1px solid var(--line); border-radius: 10px; padding: .7rem .85rem; background: var(--color-bg-secondary); color: var(--color-text); font-size: 1rem; font-weight: 500; color-scheme: dark; }
             .quantity-control { display: flex; background: var(--color-bg-secondary); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
-            .quantity-control button { width: 2.75rem; border: 0; background: var(--color-primary); color: #0d2620; font-size: 1.25rem; font-weight: bold; cursor: pointer; transition: background .2s; }
+            .quantity-control button { width: 2.9rem; min-height: 3rem; border: 0; background: var(--color-primary); color: #0d2620; font-size: 1.25rem; font-weight: bold; cursor: pointer; transition: background .2s; }
             .quantity-control button:hover { filter: brightness(1.08); }
-            .quantity-control input { text-align: center; border-radius: 0; }
-            @media (max-width: 767px) { .rental-detail { padding-top: 6.5rem; } }
+            .quantity-control input { flex: 1; text-align: center; border: 0; border-radius: 0; -moz-appearance: textfield; }
+            .quantity-control input::-webkit-outer-spin-button,
+            .quantity-control input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+            @media (min-width: 768px) {
+                .rental-detail { padding: 7rem 0 4rem; }
+            }
+            @media (min-width: 992px) {
+                .rental-detail { padding: 8rem 0 5rem; }
+            }
         </style>
     @endpush
     @push('scripts')

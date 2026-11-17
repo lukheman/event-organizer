@@ -38,17 +38,17 @@ class DatabaseSeeder extends Seeder
         }
 
         foreach ([
-            'site_name' => 'Lini Jaya Event',
+            'site_name' => 'LinyEO',
             'footer_tagline' => 'Event organizer profesional untuk konsep, produksi, pelaksanaan, dan perlengkapan acara.',
             'hero_eyebrow' => 'Event organizer profesional',
             'hero_title' => 'Wujudkan acara yang terencana, berkesan, dan berjalan tanpa hambatan.',
-            'hero_subtitle' => 'Lini Jaya Event membantu Anda merancang konsep, mengelola produksi, dan menyediakan perlengkapan untuk setiap kebutuhan acara.',
+            'hero_subtitle' => 'LinyEO membantu Anda merancang konsep, mengelola produksi, dan menyediakan perlengkapan untuk setiap kebutuhan acara.',
             'hero_note' => 'Dari konsep hingga eksekusi, satu tim untuk acara Anda.',
-            'about' => 'Lini Jaya Event adalah partner event organizer untuk instansi, sekolah, perusahaan, dan komunitas. Kami membantu merancang konsep, mengelola produksi, menjalankan operasional, serta menyediakan perlengkapan agar setiap acara terlaksana dengan rapi dan berkesan.',
+            'about' => 'LinyEO adalah partner event organizer untuk instansi, sekolah, perusahaan, dan komunitas. Kami membantu merancang konsep, mengelola produksi, menjalankan operasional, serta menyediakan perlengkapan agar setiap acara terlaksana dengan rapi dan berkesan.',
             'vision' => 'Menjadi partner event organizer dan penyedia perlengkapan acara yang paling andal.',
             'mission' => 'Menghadirkan perencanaan terstruktur, produksi yang presisi, tim yang responsif, dan perlengkapan terawat untuk setiap acara.',
             'address' => 'Jl. Merdeka No. 10, Makassar',
-            'email' => 'halo@linijayaevent.id',
+            'email' => 'halo@linyeo.id',
             'whatsapp_number' => '6281234567890',
             'whatsapp_template' => 'Halo, saya ingin menanyakan ketersediaan alat untuk acara saya.',
             'operating_hours' => 'Senin–Sabtu, 08.00–17.00',

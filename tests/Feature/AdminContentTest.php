@@ -6,8 +6,14 @@ use App\Models\RentalItem;
 use App\Models\Service;
 use App\Models\TeamMember;
 use App\Models\User;
+use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+
+beforeEach(function () {
+    $this->withoutMiddleware([ValidateCsrfToken::class, VerifyCsrfToken::class]);
+});
 
 it('protects content management behind authentication', function () {
     $this->get(route('admin.content.index', 'services'))->assertRedirect(route('login'));

@@ -2,6 +2,68 @@
 
 A modern, elegant admin dashboard template built with Laravel 12, Blade, and Bootstrap 5. Features a dark mode design, reusable Blade components, and user management capabilities.
 
+## Deskripsi Website Event Organizer
+
+Website ini merupakan platform company profile untuk **Event Organizer** yang membantu memperkenalkan layanan, pengalaman, portofolio, dan kredibilitas perusahaan kepada calon klien. Website dirancang sebagai media informasi sekaligus sarana konsultasi bagi instansi, sekolah, perusahaan, komunitas, maupun masyarakat yang membutuhkan jasa penyelenggaraan acara.
+
+Pengunjung dapat melihat informasi lengkap mengenai profil perusahaan, berbagai layanan yang tersedia, dokumentasi kerja sama, testimoni klien, serta informasi kontak. Calon klien juga dapat berkonsultasi langsung melalui WhatsApp dengan pesan yang telah disiapkan.
+
+Website dilengkapi halaman admin untuk mengelola konten secara mandiri tanpa perlu mengubah kode program. Admin dapat memperbarui layanan, portofolio kerja sama, testimoni, profil perusahaan, informasi kontak, dan media sosial.
+
+## Fitur-Fitur Unggulan
+
+### 1. Beranda Informatif
+
+Menampilkan headline, deskripsi layanan, tombol konsultasi WhatsApp, layanan unggulan, cuplikan portofolio, testimoni klien, dan informasi kontak.
+
+### 2. Informasi Layanan Lengkap
+
+Menyediakan kategori layanan **Pelatihan**, **Workshop**, **Seminar**, dan **Penyewaan**. Setiap layanan memiliki halaman detail berisi deskripsi, foto, fasilitas, serta informasi kebutuhan klien.
+
+### 3. Fitur Penyewaan Peralatan
+
+Pengunjung dapat melihat peralatan atau fasilitas yang disewakan, seperti sound system, tenda, venue, dan perlengkapan pendukung acara lainnya. Setiap item dapat dilengkapi foto serta deskripsi.
+
+### 4. Konsultasi Langsung melalui WhatsApp
+
+Tombol WhatsApp tersedia pada halaman website untuk memudahkan calon klien menghubungi Event Organizer. Pesan konsultasi dapat dibuat otomatis berdasarkan layanan yang dipilih.
+
+### 5. Portofolio Kerja Sama
+
+Menampilkan rekam jejak kerja sama dengan berbagai mitra atau klien, lengkap dengan nama mitra, nama kegiatan, tanggal kegiatan, deskripsi acara, dan galeri foto dokumentasi.
+
+### 6. Testimoni Klien
+
+Menampilkan pengalaman klien berupa nama, instansi atau jabatan, foto, komentar, dan rating jika tersedia. Testimoni dapat ditampilkan pada beranda maupun halaman khusus.
+
+### 7. Halaman Tentang Kami
+
+Berisi profil perusahaan, visi dan misi, nilai serta keunggulan perusahaan, informasi tim, dan pengalaman dalam menangani kegiatan.
+
+### 8. Informasi Kontak dan Lokasi
+
+Menyediakan alamat perusahaan, nomor telepon dan WhatsApp, email, jam operasional, peta lokasi, serta tautan media sosial.
+
+### 9. Dashboard Admin
+
+Admin dapat mengelola layanan, portofolio kerja sama, testimoni, profil perusahaan, kontak, media sosial, dan akun pengguna melalui dashboard khusus.
+
+### 10. Manajemen Konten Tanpa Mengubah Kode
+
+Admin dapat menambah, mengubah, menghapus, serta mengatur status tampil atau sembunyi pada konten website secara langsung melalui dashboard.
+
+### 11. Desain Responsif
+
+Website dapat digunakan dengan nyaman melalui smartphone, tablet, laptop, maupun komputer desktop. Tampilan menyesuaikan ukuran layar agar informasi tetap mudah dibaca.
+
+### 12. Galeri Dokumentasi Kegiatan
+
+Setiap proyek atau kerja sama dapat memiliki beberapa foto dokumentasi untuk menampilkan hasil kegiatan secara lebih menarik dan meyakinkan.
+
+## Kesimpulan
+
+Website Event Organizer ini menjadi media digital terpadu untuk memperkenalkan layanan, membangun kepercayaan, menampilkan pengalaman kerja, dan menerima konsultasi dari calon klien. Dengan dukungan halaman publik yang informatif serta dashboard admin yang mudah digunakan, pengelolaan dan pembaruan informasi dapat dilakukan dengan cepat, praktis, dan terstruktur.
+
 ## ✨ Features
 
 - 🎨 **Modern UI** - Beautiful, modern theme with glassmorphism effects

@@ -23,7 +23,9 @@ Route::get('/rancang-kebutuhan', [PublicPageController::class, 'custom'])->name(
 Route::get('/kerja-sama', [PublicPageController::class, 'collaborations'])->name('collaborations');
 Route::get('/kerja-sama/{collaboration:slug}', [PublicPageController::class, 'collaboration'])->name('collaborations.show');
 Route::get('/testimoni', [PublicPageController::class, 'testimonials'])->name('testimonials');
+Route::post('/testimoni', [PublicPageController::class, 'storeTestimonial'])->name('testimonials.store');
 Route::get('/kontak', [PublicPageController::class, 'contact'])->name('contact');
+Route::post('/kontak', [PublicPageController::class, 'storeContactInquiry'])->name('contact.store');
 Route::get('/sitemap.xml', [PublicPageController::class, 'sitemap'])->name('sitemap');
 
 // Auth Routes

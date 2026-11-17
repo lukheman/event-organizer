@@ -177,6 +177,9 @@ class ContentController extends Controller
             'whatsapp_number' => ['nullable', 'string'],
             'whatsapp_template' => ['nullable', 'string'],
             'operating_hours' => ['nullable', 'string'],
+            'timezone' => ['nullable', 'string', 'max:50'],
+            'response_time' => ['nullable', 'string', 'max:255'],
+            'after_hours_message' => ['nullable', 'string', 'max:255'],
             'map_embed' => ['nullable', 'string'],
         ]);
 
@@ -198,7 +201,7 @@ class ContentController extends Controller
     {
         $rules = match ($resource) {
             'rental-items' => ['service_id' => ['required', 'exists:services,id'], 'category' => ['nullable', Rule::in(array_keys(config('rental.categories')))], 'availability' => ['required', Rule::in(array_keys(config('rental.availability')))], 'name' => ['required', 'string', 'max:255'], 'description' => ['nullable', 'string'], 'price_per_day' => ['nullable', 'integer', 'min:0'], 'photo' => ['nullable', 'image', 'max:2048'], 'sort_order' => ['nullable', 'integer'], 'is_active' => ['nullable', 'boolean']],
-            'services' => ['category' => ['required', 'in:wedding,workshop,seminar,sewa-crew,paket,penyewaan'], 'name' => ['required', 'string', 'max:255'], 'slug' => ['required', 'string', 'max:255'], 'description' => ['required', 'string'], 'features' => ['nullable', 'string'], 'sort_order' => ['nullable', 'integer'], 'is_active' => ['nullable', 'boolean']],
+            'services' => ['category' => ['required', 'in:wedding,workshop,seminar,sewa-crew,paket,penyewaan'], 'name' => ['required', 'string', 'max:255'], 'slug' => ['required', 'string', 'max:255'], 'description' => ['required', 'string'], 'features' => ['nullable', 'string'], 'price_per_day' => ['nullable', 'integer', 'min:0'], 'sort_order' => ['nullable', 'integer'], 'is_active' => ['nullable', 'boolean']],
             'collaborations' => ['partner_name' => ['required', 'string'], 'event_name' => ['required', 'string'], 'slug' => ['required', 'string'], 'event_date' => ['required', 'date'], 'service_category' => ['nullable', 'string'], 'description' => ['nullable', 'string'], 'photos.*' => ['nullable', 'image', 'max:2048'], 'is_active' => ['nullable', 'boolean']],
             'testimonials' => ['name' => ['required', 'string'], 'organization' => ['nullable', 'string'], 'comment' => ['required', 'string'], 'rating' => ['nullable', 'integer', 'between:1,5'], 'is_active' => ['nullable', 'boolean']],
             'team-members' => ['name' => ['required', 'string', 'max:255'], 'position' => ['required', 'string', 'max:255'], 'photo' => ['nullable', 'image', 'max:2048'], 'sort_order' => ['nullable', 'integer'], 'is_active' => ['nullable', 'boolean']],

@@ -92,6 +92,11 @@
                         <textarea name="features" class="form-control" rows="4">{{ old('features', implode("\n", $record?->features ?? [])) }}</textarea>
                     </div>
                     <div class="col-md-4">
+                        <label class="form-label">Tarif per Hari</label>
+                        <input type="number" min="0" name="price_per_day" class="form-control" value="{{ old('price_per_day', $record?->price_per_day) }}">
+                        <div class="form-text">Dipakai untuk tarif crew atau layanan berbayar.</div>
+                    </div>
+                    <div class="col-md-4">
                         <label class="form-label">Urutan</label>
                         <input type="number" name="sort_order" class="form-control" value="{{ old('sort_order', $record?->sort_order ?? 0) }}">
                     </div>

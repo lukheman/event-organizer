@@ -1,5 +1,5 @@
 @php
-    $siteName = $settings['site_name'] ?? 'Lini Jaya Event';
+    $siteName = $settings['site_name'] ?? 'LinyEO';
     $waUrl = \App\Support\SiteContent::whatsappUrl($settings, 'Halo, saya ingin berkonsultasi mengenai rencana acara dengan tim '.$siteName.'.');
 @endphp
 
@@ -30,7 +30,7 @@
                         <span class="eyebrow">Siapa kami</span>
                         <h2 class="display-6 mt-2 mb-3">Satu tim untuk perencanaan, produksi, dan pelaksanaan acara.</h2>
                         <p class="text-secondary mb-3">
-                            {{ $settings['about'] ?? 'Lini Jaya Event adalah partner event organizer untuk instansi, sekolah, perusahaan, dan komunitas. Kami membantu merancang konsep, mengelola produksi, menjalankan operasional, serta menyediakan perlengkapan agar setiap acara terlaksana dengan rapi dan berkesan.' }}
+                            {{ $settings['about'] ?? 'LinyEO adalah partner event organizer untuk instansi, sekolah, perusahaan, dan komunitas. Kami membantu merancang konsep, mengelola produksi, menjalankan operasional, serta menyediakan perlengkapan agar setiap acara terlaksana dengan rapi dan berkesan.' }}
                         </p>
                         <p class="text-secondary mb-0">
                             Setiap kerja sama dimulai dengan pemahaman terhadap tujuan acara, dilanjutkan dengan penyusunan rencana kerja yang terukur, dan dieksekusi melalui koordinasi tim yang responsif. Seluruh proses didokumentasikan agar keputusan dapat diambil secara tepat dan hasilnya dapat dievaluasi.
@@ -52,7 +52,7 @@
                             </span>
                             <span class="d-flex gap-2">
                                 <i class="fa-solid fa-envelope mt-1" style="color: var(--color-primary)"></i>
-                                <a class="text-decoration-none" style="color: inherit" href="mailto:{{ $settings['email'] ?? 'halo@linijayaevent.id' }}">{{ $settings['email'] ?? 'halo@linijayaevent.id' }}</a>
+                                <a class="text-decoration-none" style="color: inherit" href="mailto:{{ $settings['email'] ?? 'halo@linyeo.id' }}">{{ $settings['email'] ?? 'halo@linyeo.id' }}</a>
                             </span>
                             <span class="d-flex gap-2">
                                 <i class="fa-brands fa-whatsapp mt-1" style="color: var(--color-primary)"></i>

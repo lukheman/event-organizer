@@ -1,5 +1,5 @@
 @php
-    $siteName = $settings['site_name'] ?? 'Lini Jaya Event';
+    $siteName = $settings['site_name'] ?? 'LinyEO';
     $waUrl = \App\Support\SiteContent::whatsappUrl($settings, 'Halo, saya ingin berkonsultasi mengenai rencana acara dengan tim '.$siteName.'.');
     $testimonialCount = $testimonials->count();
     $averageRating = $testimonialCount > 0 ? round($testimonials->avg('rating') ?? 5, 1) : null;
@@ -15,7 +15,7 @@
             </p>
 
             @if ($testimonialCount > 0)
-                <div class="d-flex flex-wrap gap-4 mt-4">
+                <div class="hero-stats mt-4">
                     <div>
                         <div class="stat-value">{{ $testimonialCount }}</div>
                         <div class="small text-secondary">Mitra memberikan penilaian</div>
@@ -44,6 +44,24 @@
                 <span class="eyebrow">Penilaian mitra</span>
                 <h2 class="display-6 mt-2 mb-2">Apa yang mitra sampaikan tentang layanan kami.</h2>
                 <p class="text-secondary mb-0">Umpan balik berikut disampaikan oleh instansi, perusahaan, dan komunitas yang telah bekerja sama dengan {{ $siteName }}.</p>
+            </div>
+
+            @if (session('success'))
+                <div class="alert alert-success mb-4">{{ session('success') }}</div>
+            @endif
+
+            <div class="card-clean p-4 p-md-5 mb-4">
+                <span class="eyebrow">Bagikan pengalaman</span>
+                <h2 class="h4 mt-2">Tulis testimoni Anda</h2>
+                <p class="text-secondary">Testimoni akan ditinjau sebelum ditampilkan.</p>
+                <form method="POST" action="{{ route('testimonials.store') }}" class="row g-3">
+                    @csrf
+                    <div class="col-md-6"><label class="form-label" for="testimonial-name">Nama</label><input id="testimonial-name" name="name" class="form-control" required value="{{ old('name') }}"></div>
+                    <div class="col-md-6"><label class="form-label" for="testimonial-organization">Organisasi</label><input id="testimonial-organization" name="organization" class="form-control" value="{{ old('organization') }}"></div>
+                    <div class="col-md-4"><label class="form-label" for="testimonial-rating">Rating</label><select id="testimonial-rating" name="rating" class="form-select" required>@for ($rating = 5; $rating >= 1; $rating--)<option value="{{ $rating }}">{{ $rating }} / 5</option>@endfor</select></div>
+                    <div class="col-12"><label class="form-label" for="testimonial-comment">Komentar</label><textarea id="testimonial-comment" name="comment" rows="4" class="form-control" required>{{ old('comment') }}</textarea></div>
+                    <div class="col-12"><button class="btn btn-main" type="submit">Kirim testimoni</button></div>
+                </form>
             </div>
 
             <div class="row g-4">
