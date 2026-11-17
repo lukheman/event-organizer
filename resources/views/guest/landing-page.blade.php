@@ -89,40 +89,6 @@
         </div>
     </section>
 
-    <section class="public-stats" aria-label="Statistik LinyEO">
-        <div class="container">
-            <div class="row g-3">
-                <div class="col-6 col-md-3">
-                    <div class="public-stat">
-                        <span class="public-stat-icon"><i class="fa-solid fa-calendar-check"></i></span>
-                        <strong>{{ $stats['services'] }}</strong>
-                        <span>Layanan event</span>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3">
-                    <div class="public-stat">
-                        <span class="public-stat-icon"><i class="fa-solid fa-handshake"></i></span>
-                        <strong>{{ $stats['collaborations'] }}</strong>
-                        <span>Acara ditangani</span>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3">
-                    <div class="public-stat">
-                        <span class="public-stat-icon"><i class="fa-solid fa-users"></i></span>
-                        <strong>{{ $stats['partners'] }}</strong>
-                        <span>Mitra kerja sama</span>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3">
-                    <div class="public-stat">
-                        <span class="public-stat-icon"><i class="fa-solid fa-box-open"></i></span>
-                        <strong>{{ $stats['available_items'] }}</strong>
-                        <span>Perlengkapan siap</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <section class="section section-soft" id="layanan">
         <div class="container">
@@ -687,38 +653,93 @@
 
             @media (max-width: 639.98px) {
                 .hero-with-slider {
-                    min-height: 0;
-                    padding: 5.5rem 0 2.75rem;
+                    min-height: auto;
+                    padding: 6rem 0 3.5rem;
                 }
 
-                .hero-with-slider .hero-copy {
-                    text-shadow: 0 2px 14px rgba(0, 0, 0, .45);
+                .hero-with-slider .container,
+                .section > .container {
+                    padding-left: 1rem;
+                    padding-right: 1rem;
                 }
 
-                .hero-with-slider .hero-slider::before {
-                    background: linear-gradient(180deg, rgba(8, 24, 15, .96) 0%, rgba(8, 24, 15, .9) 55%, rgba(8, 24, 15, .97) 100%);
+                .hero-with-slider .hero-copy,
+                .section-head {
+                    max-width: 100%;
                 }
 
                 .hero .display-3 {
-                    font-size: clamp(26px, 7.5vw, 32px);
-                    line-height: 1.12;
-                }
-
-                .section .display-6 {
-                    font-size: clamp(22px, 5.8vw, 27px);
-                    line-height: 1.18;
+                    font-size: clamp(2rem, 9vw, 2.75rem);
+                    line-height: 1.08;
                 }
 
                 .hero .lead {
-                    font-size: .9375rem;
+                    max-width: 34rem;
+                    font-size: .95rem;
                 }
 
-                .hero .small {
-                    font-size: .82rem;
+                .hero .d-flex.flex-wrap {
+                    align-items: stretch;
+                    flex-direction: column;
                 }
 
-                .stat-value {
-                    font-size: 1.2rem;
+                .hero .d-flex.flex-wrap .btn,
+                .cta-band .btn {
+                    width: 100%;
+                }
+
+                .public-stats {
+                    padding: 0 1rem .75rem;
+                }
+
+                .public-stats .container {
+                    padding: 0;
+                }
+
+                .public-stat {
+                    min-height: 4.5rem;
+                    align-items: flex-start;
+                }
+
+                .public-stat > span:last-child {
+                    display: block;
+                    max-width: 7rem;
+                }
+
+                .section {
+                    overflow: hidden;
+                }
+
+                .section-head + .text-link {
+                    display: inline-flex;
+                    align-items: center;
+                    width: fit-content;
+                    max-width: 100%;
+                    white-space: normal !important;
+                }
+
+                .catalog-search {
+                    margin-top: .25rem;
+                }
+
+                #katalog .d-flex.align-items-center.small {
+                    align-items: flex-start !important;
+                    flex-direction: column;
+                    gap: .6rem !important;
+                }
+
+                #catalog-grid .card-clean {
+                    min-width: 0;
+                    padding: 1rem !important;
+                }
+
+                #catalog-grid .card-clean .btn {
+                    min-width: 0;
+                    white-space: normal;
+                }
+
+                .cta-band .row > * {
+                    min-width: 0;
                 }
             }
 

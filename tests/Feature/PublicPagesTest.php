@@ -21,9 +21,7 @@ it('shows public event organizer pages', function () {
     $this->get('/')
         ->assertSuccessful()
         ->assertSee('Wujudkan acara yang terencana')
-        ->assertSee('hero-with-slider', false)
-        ->assertSee('Statistik LinyEO', false)
-        ->assertSee('Perlengkapan siap');
+        ->assertSee('hero-with-slider', false);
     $this->get('/tentang')->assertSuccessful()->assertSee('Tentang kami');
     $this->get('/layanan')->assertSuccessful()->assertSee('Layanan');
     $this->get('/kontak')
